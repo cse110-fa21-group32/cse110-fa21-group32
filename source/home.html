@@ -4,7 +4,8 @@
 <html>
 
 <head>
-
+    <!-- Router -->
+    <script src="source/assets/scripts/Router.js" type="module"></script>
 </head>
 
 <header>
@@ -32,21 +33,23 @@
         <!--Monthly View-->
         <div id="monthID" class="month">
             <p>Month</p>
+            <button type="button">Add Recipes</button>
         </div>
 
         <!--Weekly View-->
         <div id="weekID" class="week">
             <p>Week</p>
+            <button type="button">Add Recipes</button>
         </div>
 
         <!--Daily View-->
         <div id="dayID" class="day">
             <p>Day</p>
+            <button type="button">Add Recipes</button>
         </div>
 
 
     </section>
-
 
     <!--Grocery-list-->
     <section id="grocery-listID" class="grocery-list">
@@ -84,6 +87,17 @@
         <div id="recipe-ingredientsID" class="recipe-ingredients">
             <p>Ingredients</p>
             <!--Add To List Button-->
+            <details>
+                <summary>
+                    click here for all Ingredients
+                </summary>
+                <ol>
+                    <li>some item</li>
+                    <li>some item</li>
+                    <li>some item</li>
+                </ol>
+            </details>
+            <br>
             <button type="button">Add to List</button>
         </div>
 
@@ -169,35 +183,55 @@
         <div id="add-recipe-summaryID" class="add-recipe-summary">
             <p>Summary</p>
             <textarea></textarea>
-            <button type="button">Submit!</button>
+            <br>
+            <input type="submit" value="Submit!">
         </div>
 
         <!--Recipe Ingredients-->
         <div id="add-recipe-ingredientsID" class="add-recipe-ingredients">
-            <p>Ingredients</p>
+            <label for="Ingredients"> <p>Ingredients:</p> </label>
+            <br>
+            <input type="text"><br>
+            <input type="text"><br>
+            <input type="text"><br>
+            <input type="text"><br>
+            <input type="text"><br>
+            <br>
+            <input type="submit" value="Submit!">
         </div>
 
         <!--Recipe Directions-->
         <div id="add-recipe-directionID" class="add-recipe-direction">
             <p>Direction</p>
+            <ol>
+                <li>Step 1:</li>
+                <textarea></textarea>
+                <li>Step 2:</li>
+                <textarea></textarea>
+                <li>Step 3:</li>
+                <textarea></textarea>
+            </ol>
+            <input type="submit" value="Submit!">
         </div>
     </section>
 
     <!--Sidepanel-->
     <!--Add CSS and Javascript-->
     <!--Side Panel-->
-    <div id="sidepanlID" class="sidepanel">
-        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-        <a href="">Favorite Recipes</a>
-        <a href="profile-page-reviewsID">Previously Cooked</a>
-        <a href="add-recipe-summaryID">Add a Recipe</a>
-        <a href="#">Write a Review</a>
-    </div>
+    <section class="sidepanel">
+        <div id="sidepanlID" class="sidepanel">
+            <h2>Collapsed Sidepanel</h2>
+            <p>Content...</p>
+            <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+            <a href="">Favorite Recipes</a>
+            <a href="profile-page-reviewsID">Previously Cooked</a>
+            <a href="add-recipe-summaryID">Add a Recipe</a>
+            <a href="#">Write a Review</a>
+        </div>
 
-    <button class="openbtn" onclick="openNav()">&#9776; Toggle Sidepanel</button>
-    <h2>Collapsed Sidepanel</h2>
-    <p>Content...</p>
+        <button class="openbtn" onclick="openNav()">&#9776; Toggle Sidepanel</button>
 
+    </section>
 
     <!--Functions-->
     <script>
@@ -205,6 +239,7 @@
     </script>
 
     <!--Footer bar-->
+    <!--"Reference: ____ [description]"-->
     <footer>
         <h2>Footer</h2>
         <ul>
