@@ -1,29 +1,70 @@
 <!DOCTYPE html>
-<html lang='en'>
-  <head>
-    <meta charset='utf-8' />
-    <link href='../lib/main.css' rel='stylesheet' />
-    <script src='../lib/main.js'></script>
-    <script src="addEvent.js"  type="module"></script>
-    <script>
+<html>
+<head>
+<meta charset='utf-8' />
+<link href='lib/main.css' rel='stylesheet' />
+<script src='lib/main.js'></script>
+<script>
 
-      document.addEventListener('DOMContentLoaded', function() {
-        var calendarEl = document.getElementById('calendar');
-        var calendar = new FullCalendar.Calendar(calendarEl, {
-          initialView: 'dayGridMonth',
-          contentHeight: 1200,
-          events: [
-            {
-              id: 'a',
-              title: 'my event',
-              start: '2018-09-01'
-            }
-          ],
-        });
-      });
-    </script>
-  </head>
-  <body>
-    <div id='calendar'></div>
-  </body>
+  document.addEventListener('DOMContentLoaded', function() {
+    var calendarEl = document.getElementById('calendar');
+
+    var calendar = new FullCalendar.Calendar(calendarEl, {
+      headerToolbar: {
+        left: 'prevYear,prev,next,nextYear today',
+        center: 'title',
+        right: 'dayGridMonth,dayGridWeek,dayGridDay'
+      },
+      initialDate: '2021-11-01',
+      timeZone: 'UTC',
+      navLinks: true, // can click day/week names to navigate views
+      editable: true,
+      dayMaxEvents: true, // allow "more" link when too many events
+      events: [
+        {
+          title: 'Harvest Pumpkin Soup',
+          url: 'https://www.allrecipes.com/recipe/13473/harvest-pumpkin-soup/',
+          start: '2021-11-28T08:00'
+        },
+        {
+          title: 'Persimmon Pudding',
+          url: 'https://www.allrecipes.com/recipe/13715/persimmon-pudding/',
+          start: '2021-11-12T08:00'
+        },
+        {
+          title: 'Persimmon Bars',
+          url: 'https://www.allrecipes.com/recipe/25222/persimmon-bars/',
+          start: '2021-11-12T12:00'
+        },
+        {
+          title: 'Easy Persimmon Jam',
+          url: 'https://www.allrecipes.com/recipe/256073/easy-persimmon-jam/',
+          start: '2021-11-12T18:00'
+        },
+      ]
+    });
+
+    calendar.render();
+  });
+
+</script>
+</head>
+<body>
+
+  <div id='calendar'></div>
+  <div class="footer">
+    <button class="footerButton" type="submit" style="background-color:transparent; border-color:transparent;" onclick="window.location.href='https://google.com'"> 
+      <img class="footerImage" src="icons/home.svg" height="35">
+    </button>
+    <button class="footerButton" type="submit" style="background-color:transparent; border-color:transparent;"> 
+      <img class="footerImage"  src="icons/calendar.svg" height="35"/>
+    </button>
+    <button class="footerButton" type="submit" style="background-color:transparent; border-color:transparent;"> 
+      <img class="footerImage"  src="icons/shopping-cart.svg" height="35"/>
+    </button>
+    <button class="footerButton" type="submit" style="background-color:transparent; border-color:transparent;"> 
+      <img class="footerImage"  src="icons/user.svg" height="35"/>
+    </button>
+  </div>
+</body>
 </html>
