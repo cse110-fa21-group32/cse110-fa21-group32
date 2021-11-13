@@ -4,11 +4,16 @@ document.addEventListener('DOMContentLoaded', function() {
     var calendar = new FullCalendar.Calendar(calendarEl, {
       initialView: 'dayGridWeek',
       headerToolbar: {
-        center: 'addEventButton'
+        left: 'prevYear,prev,next,nextYear today',
+        center: 'title',
+        right: 'dayGridMonth,dayGridWeek,dayGridDay,addEventButton'
       },
+      navLinks: true, // can click day/week names to navigate views
+      editable: true,
+      dayMaxEvents: true, // allow "more" link when too many events
       customButtons: {
         addEventButton: {
-          text: 'add event...',
+          text: 'add a meal',
           click: function() {
             var dateStr = prompt('Enter a date in YYYY-MM-DD format');
             var date = new Date(dateStr + 'T00:00:00'); // will be in local time
@@ -19,7 +24,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 start: date,
                 allDay: true
               });
-              alert('Great. Now, update your database...');
+              alert('Great!'/*Now, update your database...*/);
             } else {
               alert('Invalid date.');
             }
@@ -27,7 +32,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
       },
 
-      // Click Event
+      // Click to Delete An Event
       eventClick: function(info) {
         var eventObj = info.event;
   
@@ -41,7 +46,7 @@ document.addEventListener('DOMContentLoaded', function() {
   
           info.jsEvent.preventDefault(); // prevents browser from following link in current tab.
         } else {
-          alert('Delete ' + eventObj.title + ' from your schedule?');
+          alert('Delete ' + eventObj.title + ' from your meal plan?');
           eventObj.remove()
         }
       }/*,
