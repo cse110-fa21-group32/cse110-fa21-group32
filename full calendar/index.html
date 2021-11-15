@@ -4,7 +4,7 @@
 <meta charset='utf-8' />
 <link href='lib/main.css' rel='stylesheet' />
 <script src='lib/main.js'></script>
-<script src="addEvent.js"  type="module">/*ADDED*/</script>
+
 <script>
 
   document.addEventListener('DOMContentLoaded', function() {
@@ -42,7 +42,39 @@
           url: 'https://www.allrecipes.com/recipe/256073/easy-persimmon-jam/',
           start: '2021-11-12T18:00'
         },
-      ]
+      ],
+      customButtons: {
+        addEventButton: {
+          text: 'add a meal',
+          click: function() {
+            var dateStr = prompt('Enter a date in YYYY-MM-DD format');
+            var date = new Date(dateStr + 'T00:00:00'); // will be in local time
+  
+            if (!isNaN(date.valueOf())) { // valid?
+              calendar.addEvent({
+                title : 'Harvest Pumpkin Soup',//fetch(jsonRecipe),
+                start: date,
+                allDay: true,
+                url: 'https://www.allrecipes.com/recipe/13473/harvest-pumpkin-soup/'
+              });
+              alert('Great!'/*Now, update your database...*/);
+            } else {
+              alert('Invalid date.');
+            }
+          }
+        }
+      },
+
+      
+      eventHover: function(info) {
+        var eventObj = info.event;
+        if(confirm("See the recipe?") == true) {
+          window.open(eventObj.url)
+        }
+        if (confirm("Remove this meal from your meal plan?") == true) {
+          eventObj.remove()
+        }
+      }
     });
 
     calendar.render();
