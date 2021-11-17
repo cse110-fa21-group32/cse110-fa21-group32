@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="utf-8">
+    <title>Login / Sign Up Form</title>
+    <link rel="shortcut icon" href="{{ url_for('static', filename='assets/favico.ico') }}"> 
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap');
+    </style>
+</head>
+<body>
+    <div class="container">
+        <form class="form" id="login">
+            <h1 class="form__title">Login</h1>
+            <div class="form__message form__message--error" ></div>
+            <div class="form__input-group">
+                <input type="text" class="form__input" autofocus placeholder="Username or email">
+                <div class="form__input-error-message"></div>
+            </div>
+            <div class="form__input-group">
+                <input type="password" class="form__input" autofocus placeholder="Password">
+                <div class="form__input-error-message"></div>
+            </div>
+            <button class="form__button" type="submit">Continue</button>
+            <p class="form__text">
+                <a href="#" class="form__link" id="linkEmailPage">Forget your password?</a>
+            </p>
+
+            <p class="form__text">
+                <a class="form__link" href="./" id="linkCreation">Don't have an account? Create account!</a>
+            </p>
+        </form>
+
+        <form class="form form--hidden" id="creation">
+            <h1 class="form__title">Create Account</h1>
+            <div class="form__message form__message--error" ></div>
+            <div class="form__input-group">
+                <input type="text" id="signUpUsername" class="form__input" name="username" autofocus placeholder="Username">
+                <div class="form__input-error-message"></div>
+            </div>
+            <div class="form__input-group">
+                <input type="text" class="form__input" name="email" autofocus placeholder="Email Address">
+                <div class="form__input-error-message"></div>
+            </div>
+            <div class="form__input-group">
+                <input type="password" class="form__input" name="password" autofocus placeholder="Password">
+                <div class="form__input-error-message"></div>
+            </div>
+            <div class="form__input-group">
+                <input type="password" class="form__input" name="confirm-pass" autofocus placeholder="Confirm Password">
+                <div class="form__input-error-message"></div>
+            </div>
+            <input class="form__button" id="registration" type="submit" value="Continue">
+            <p class="form__text">
+                <a class="form__link" href="./" id="linkLogin">Already have an account? Sign in!</a>
+            </p>
+        </form>
+
+        <form class="form form--hidden" id="emailPage">
+            <h1 class="form__title">Registration Email</h1>
+            <div class="form__input-group">
+                <input type="text" class="form__input" autofocus placeholder="Email Address">
+                <div class="form__input-error-message"></div>
+            </div>
+            <button class="form__button" id="reset" type="submit">Receive Confirmation Email</button>
+            <p class="form__text">
+                <a class="form__link" href="./" id="linkLogin">Remember the password? Login!</a>
+            </p>
+        </form>
+
+        <form class="form form--hidden" id="confirmationPage">
+            <h1 class="form__title">Check Your Email</h1>
+            <p>We have already sent an email with the link to reset your passord to your email! Reset your password and come back to login in!</p>
+            <p class="form__text">
+                <a class="form__link" href="./" id="linkLogin">Back to Login!</a>
+            </p>
+        </form>
+
+        <form class="form form--hidden" id="successReg">
+            <h1 class="form__title">Successful!</h1>
+            <p>Congradulations! You have already registrated successfully! Now you can go back to login!</p>
+            <p class="form__text">
+                <a class="form__link" href="./" id="linkLogin">Back to Login!</a>
+            </p>
+        </form>
+    </div>
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+
