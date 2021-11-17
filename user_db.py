@@ -1,12 +1,9 @@
 # User DB - Backend
+# requirement: sqlite3
 
 import json
 import sqlite3
 import pickle 
-import socket
-
-#Instance Variables: conn, cur
-
 
 class User_DB:
     def __init__(self, db = 'users.db'):

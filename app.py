@@ -1,4 +1,7 @@
+# Flask app / server
+
 # https://towardsdatascience.com/talking-to-python-from-javascript-flask-and-the-fetch-api-e0ef3573c451
+# requirements: flask
 
 from flask import Flask, jsonify, request, render_template
 import user_db
