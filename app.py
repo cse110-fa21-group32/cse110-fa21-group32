@@ -17,7 +17,7 @@ def home_page():
             db.createUser(msg['username'], msg['password'], msg['email'], '', '')
         # not quite sure how to call the updateUser function 
         if msg['type'] == 'update':
-            db.updateUser(msg['username'], msg['password'], msg['email'], msg['fname'], msg['lname'])
+            db.updateUser(msg['username'], msg['password'], msg['email'])
     return render_template('index.html')
 
 
