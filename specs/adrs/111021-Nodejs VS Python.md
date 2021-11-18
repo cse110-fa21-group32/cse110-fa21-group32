@@ -15,12 +15,12 @@ We were discussing on the backend tool between Node.js and Python.
 
 ## Considered Options
 
-* JavaScript
+* JavaScript: Node.js
 * Python
 
 ## Decision Outcome
 
-Chosen option: Need more research
+Chosen option: Node.js
 
 ### Negative Consequences <!-- optional -->
 
@@ -31,11 +31,10 @@ Chosen option: Need more research
 * 
 
 ### {Javascript}
-
 * Good, easy to get help from TA
 * Good, easier for new members to follow up with Node.js since we are learning this in class
 * Good, we have done some Lab with Node.js that we can just use some of the information there
-* Bad, Mostly bigger project are on Python
+* Bad, Mostly bigger project in real life are in Python
 
 ### {Python}
 
