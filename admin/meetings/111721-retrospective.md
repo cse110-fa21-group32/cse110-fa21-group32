@@ -4,10 +4,15 @@
 ### Time: 9:30pm - 11:00 pm
 ### Attendence: Zijian Zhang, Ke Ou, Martin Flores, Tiffany Zhong, Stuart Boynton, You Wu, Bagrat Mikhaelyan, Chenxing Qiu, Hannah Hui
 ### Absence: Eamon Aalipour
-<br></br>
 
 ## Today's Topics
 Discuss about Mad, Sad, Glad for the project and what we want to do to make it better
+
+## Attendence picture 
+<img src="../pictures/Retro attendence1.png">
+
+## Summary
+After we voted for useful comments, we talk about the problems that we might have or certain things that can be done better regarding the project. Thus, we came up with our Action Plan.
 
 ## Mad:
 - "Not understanding a lot of Javascript"
@@ -45,8 +50,6 @@ Discuss about Mad, Sad, Glad for the project and what we want to do to make it b
 - "Team members are willing to communicate with each other which is awesome."
 - "I think we have pretty good collaboration and communication all around!"
 
-## Summary
-After we voted for useful comments, we talk about the problems that we might have or certain things that can be done better regarding the project. Thus, we came up with our Action Plan.
-
 ## Action Plan
-<img src="../pictures/Action Plan.png">
+<img src="../pictures/Action Plan1.png">
+
