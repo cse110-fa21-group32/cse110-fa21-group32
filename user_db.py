@@ -73,5 +73,28 @@ class User_DB:
             return profile[0]
 
     # TODO: Finalize CRUD functions
+    def updateUser(self, username, password,email, fname, lname):
+        
+        try:
+            # Updates users with username, password, email, first & last name. Other stuff will be NULL.
+            self.cur.execute("UPDATE Users(Username, Password, Email, fName, lName) VALUES(?, ?, ?, ?, ?);", (username, password, email, fname, lname))
+            self.conn.commit()
+            return True
+        except sqlite3.IntegrityError as er: # Checks for no duplicates in username
+            print('ERROR: User ' + username + ' already exists.')
+            return False
+
+    def deleteUser(self,username,password,email,fname,lname):
+        try:
+            # Updates users with username, password, email, first & last name. Other stuff will be NULL.
+            self.cur.execute("DELETE FROM Users(Username, Password, Email, fName, lName) VALUES(?, ?, ?, ?, ?);", (username, password, email, fname, lname))
+            self.conn.commit()
+            return True
+        except sqlite3.IntegrityError as er: # Checks for no duplicates in username
+            print('ERROR: User ' + username + ' already exists.')
+            return False
+        
+
+    
 
 new_db = User_DB()

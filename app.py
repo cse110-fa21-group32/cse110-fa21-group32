@@ -15,7 +15,9 @@ def home_page():
         msg = request.get_json()
         if msg['type'] == 'register':
             db.createUser(msg['username'], msg['password'], msg['email'], '', '')
-
+        # not quite sure how to call the updateUser function 
+        if msg['type'] == 'update':
+            db.updateUser(msg['username'], msg['password'], msg['email'], msg['fname'], msg['lname'])
     return render_template('index.html')
 
 
