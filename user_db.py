@@ -72,17 +72,36 @@ class User_DB:
         else:
             return profile[0]
 
+
     # TODO: Finalize CRUD functions
-    def updateUser(self, username, password,email, fname, lname):
+    def updateUser(self, username, password, updateVals): #TODO: query update isnt working correctly
         
-        try:
-            # Updates users with username, password, email, first & last name. Other stuff will be NULL.
-            self.cur.execute("UPDATE Users(Username, Password, Email, fName, lName) VALUES(?, ?, ?, ?, ?);", (username, password, email, fname, lname))
-            self.conn.commit()
-            return True
-        except sqlite3.IntegrityError as er: # Checks for no duplicates in username
-            print('ERROR: User ' + username + ' already exists.')
-            return False
+        #Check to see if the sought updated columns exist in the database at all
+        
+        for key in updateVals:            
+            if key not in self.columns:
+                print("Selected Updated Column Does Not Exist in DataBase")
+                return False
+
+        #Ensure User Exists in DB
+        
+        self.cur.execute('SELECT * FROM Users WHERE username = ? AND password = ?', (username, password))
+        matched = self.cur.fetchall()
+        if len(matched) == 0:
+            print("User Does not Exist")
+            raise sqlite3.IntegrityError
+            
+        #User Exists, Columns Exist, Proceed and Update Columns.
+        
+        for pair in updateVals.items():
+            try:
+                query = "UPDATE Users SET {} = {} WHERE username = {} AND password = {}".format(pair[0], pair[1], username, password)
+                self.cur.execute('UPDATE Users SET Email = ? WHERE username = ? AND password = ?', (pair[1], username, password))
+                self.conn.commit()
+            except sqlite3.IntegrityError as er:
+                print("Update Value is a duplicate")
+                return False
+
 
     def deleteUser(self,username,password,email,fname,lname):
         try:
@@ -98,3 +117,4 @@ class User_DB:
     
 
 new_db = User_DB()
+new_db.createUser("eamon", "hithere", "eamon@gmail.com", "eamon", "aalipour")
