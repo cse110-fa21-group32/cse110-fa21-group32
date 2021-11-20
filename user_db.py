@@ -103,18 +103,18 @@ class User_DB:
                 return False
 
 
-    def deleteUser(self,username,password,email,fname,lname):
-        try:
+    def deleteUser(self,username,password):
+
             # Updates users with username, password, email, first & last name. Other stuff will be NULL.
-            self.cur.execute("DELETE FROM Users(Username, Password, Email, fName, lName) VALUES(?, ?, ?, ?, ?);", (username, password, email, fname, lname))
-            self.conn.commit()
-            return True
-        except sqlite3.IntegrityError as er: # Checks for no duplicates in username
-            print('ERROR: User ' + username + ' already exists.')
-            return False
+        self.cur.execute("DELETE FROM Users WHERE username = ? AND password = ? ", (username, password))
+        self.conn.commit()
+        return True
+        
         
 
     
 
 new_db = User_DB()
 new_db.createUser("eamon", "hithere", "eamon@gmail.com", "eamon", "aalipour")
+new_db.deleteUser("eamon", "hithere")
+
