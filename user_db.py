@@ -97,8 +97,7 @@ class User_DB:
         
         for pair in updateVals.items():
             try:
-                query = "UPDATE Users SET {} = {} WHERE username = {} AND password = {}".format(pair[0], pair[1], username, password)
-                self.cur.execute('UPDATE Users SET Email = ? WHERE username = ? AND password = ?', (pair[1], username, password))
+                self.cur.execute('UPDATE Users SET %s = ? WHERE username = ? AND password = ?' % (pair[0]), (pair[1], username, password))
                 self.conn.commit()
             except sqlite3.IntegrityError as er:
                 print("Update Value is a duplicate")
