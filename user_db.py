@@ -7,6 +7,8 @@ import pickle
 
 class User_DB:
     def __init__(self, db = 'users.db'):
+        self.columns = ["Username", "Password", "Email", "fname", "lname", "Calendar", 
+                       "Shopping_List", "Recipes", "Reviews", "Favorites"]
         self.conn = sqlite3.connect('users.db', check_same_thread=False) 
         self.cur = self.conn.cursor()
         # Create DB
