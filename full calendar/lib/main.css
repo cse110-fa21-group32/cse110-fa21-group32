@@ -1479,6 +1479,7 @@ A VERTICAL event
   }
 
 .footer {
+  width: 100%;
   display: -webkit-flex;
   display: flex;
   -webkit-justify-content: space-between;
@@ -1490,11 +1491,10 @@ A VERTICAL event
   background-color: #CB666A;
 }
 .footer > button {
-  margin:  0px 170px;
-  padding: 10px;
+  margin: 0px 2%;
+  padding: 15px 2%;
   font-size: 1px;
   border-radius: 10em;
-  padding: 12px 16px;
   font-size: 16px;
 }
 
