@@ -157,5 +157,3 @@ if __name__ == '__main__':
     db.fetchRecipeByID("654959")
     #id = db.createRecipe({'author': 'Chad' , 'name': 'Pasta With Chickpeas and Kale', 'image': 'https://spoonacular.com/recipeImages/654905-312x231.jpg', 'imageType': 'jpg'})
     db.updateRecipe(1000000, {'author': 'Bagrat'})
-    
-    

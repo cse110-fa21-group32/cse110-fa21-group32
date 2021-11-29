@@ -47,65 +47,13 @@ class RecipePage extends HTMLElement {
         <p>Direction</p>
         <ul>
         </ul>
-        <button><a id="LinkToCM"> Cook </a></button>
+        <button type ="button" id="LinkToCM"> Cook </button>
         </div>
 
     `;
 
     // Append elements to the shadow root
     this.shadowRoot.append(styles, article);
-    /*router.addPage('cooking-mode', function () {
-      document.getElementById('#section--recipe').classList.remove('shown');
-
-      document.getElementById('#section--cooking-mode').classList.add('shown');
-    });
-
-    const CMPage = this.shadowRoot.getElementById('LinkToCM');
-    CMPage.addEventListener('click', () => {
-      router.navigate('cooking-mode');
-    });*/
-
-    //Summary
-    this.shadowRoot.getElementById('ToSum').addEventListener('click', (e) => {
-      e.preventDefault();
-      this.shadowRoot
-        .getElementById('recipe-summaryID')
-        .setAttribute('style', 'display: show');
-      this.shadowRoot
-        .getElementById('recipe-ingredientsID')
-        .setAttribute('style', 'display: none');
-      this.shadowRoot
-        .getElementById('recipe-directionID')
-        .setAttribute('style', 'display: none');
-    });
-
-    //Ingredients
-    this.shadowRoot.getElementById('ToIng').addEventListener('click', (e) => {
-      e.preventDefault();
-      this.shadowRoot
-        .getElementById('recipe-summaryID')
-        .setAttribute('style', 'display: none');
-      this.shadowRoot
-        .getElementById('recipe-ingredientsID')
-        .setAttribute('style', 'display: show');
-      this.shadowRoot
-        .getElementById('recipe-directionID')
-        .setAttribute('style', 'display: none');
-    });
-
-    //Directions
-    this.shadowRoot.getElementById('ToDir').addEventListener('click', (e) => {
-      e.preventDefault();
-      this.shadowRoot
-        .getElementById('recipe-summaryID')
-        .setAttribute('style', 'display: none');
-      this.shadowRoot
-        .getElementById('recipe-ingredientsID')
-        .setAttribute('style', 'display: none');
-      this.shadowRoot
-        .getElementById('recipe-directionID')
-        .setAttribute('style', 'display: show');
-    });
   }
 
   set data(data) {
@@ -151,7 +99,7 @@ class RecipePage extends HTMLElement {
       <p>Direction</p>
       <ol>
       </ol>
-      <button><a id="LinkToCM"> Cook </a></button>
+      <button type ="button" id="LinkToCM"> Cook </button>
       </div>
 
     `;
@@ -176,6 +124,24 @@ class RecipePage extends HTMLElement {
         .appendChild(recipeUpdatePage);
       recipeUpdatePage.data = this.json;
       router.navigate('update-recipe');
+    });
+
+    router.addPage('cooking-mode', function () {
+      document.getElementById('#section--recipe').classList.remove('shown');
+
+      document.getElementById('#section--cooking-mode').classList.add('shown');
+    });
+
+    const CMPage = this.shadowRoot.getElementById('LinkToCM');
+    CMPage.addEventListener('click', () => {
+      const cookingPage = document.createElement('cooking-mode-page');
+      cookingPage.classList.add('shown');
+      document.getElementById('#section--cooking-mode').innerHTML = '';
+      document
+        .getElementById('#section--cooking-mode')
+        .appendChild(cookingPage);
+      cookingPage.data = this.json;
+      router.navigate('cooking-mode');
     });
 
     // Set Title
