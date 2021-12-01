@@ -97,26 +97,6 @@ class UpdateRecipePage extends HTMLElement {
     // Append elements to the shadow root
     this.shadowRoot.append(styles, article);
 
-    //Display Image form the data
-    // let img = this.shadowRoot.getElementById('recipeImage');
-    // let imgFile = this.shadowRoot.querySelector('input[type="file"]');
-
-    // imgFile.addEventListener('change', function () {
-    //   imageDisplay(this);
-    // });
-
-    // function imageDisplay(input) {
-    //   var reader;
-    //   if (input.files && input.files[0]) {
-    //     reader = new FileReader();
-    //     reader.onload = function (e) {
-    //       img.setAttribute('src', e.target.result);
-    //     };
-
-    //     reader.readAsDataURL(input.files[0]);
-    //   }
-    // }
-
     //Nav Bar for "Summary", "Ingredients", and "Directons"
     //----------------------------------------------------------------
     // Display Update Summary
@@ -178,8 +158,40 @@ class UpdateRecipePage extends HTMLElement {
   set data(data) {
     this.json = data;
     //Set Image
-    // let oldimage = data.recipe.image;
-    // this.shadowRoot.getElementById('recipeImage').setAttribute('src', oldimage);
+    let oldimage = data.recipe.image;
+    this.shadowRoot.getElementById('recipeImage').setAttribute('src', oldimage);
+    
+    // Display/Change Image form the data
+    let img = this.shadowRoot.getElementById('recipeImage');
+    let imgFile = this.shadowRoot.querySelector('input[type="file"]');
+
+    imgFile.addEventListener('change', function () {
+      imageDisplay(this);
+    });
+
+    function imageDisplay(input) {
+      var reader;
+      if (input.files && input.files[0]) {
+        reader = new FileReader();
+        reader.onload = function (e) {
+          img.setAttribute('src', e.target.result);
+        };
+        reader.readAsDataURL(input.files[0]);
+      }
+    }
+
+    // Select input file image
+    // const imageData = new FormData();
+    // const image = document
+    // let image = '';
+    // let fileReader = new FileReader();
+    // fileReader.onload = function () {
+    //   if (fileReader.result.length > 0) {
+    //     image = fileReader.result;
+    //   }
+    // };
+    // console.log(photo.files[0]);
+    // fileReader.readAsDataURL(photo.files[0]);
 
     //Set Cooking Hour and Mins
     let cookTimeHourPrev = Math.floor(
@@ -311,8 +323,8 @@ class UpdateRecipePage extends HTMLElement {
         };
         let data = {
           type: 'deleteRecipe',
-          username: 'Martin1234', // TODO: Need to update with curr user
-          password: '1234', // TODO: Need to update with curr password
+          username: localStorage.getItem('username'), // TODO: Need to update with curr user
+          token: localStorage.getItem('token'), // TODO: Need to update with curr password
           recipe: recipe,
         };
 
@@ -344,9 +356,7 @@ class UpdateRecipePage extends HTMLElement {
     const title = this.shadowRoot.getElementById('updateTitle');
     const summary = this.shadowRoot.getElementById('updateSummary');
     const ingredientList = this.shadowRoot.getElementById('ingredient-table');
-    const directions = this.shadowRoot.getElementById(
-      'update-recipe-direction'
-    );
+    const directions = this.shadowRoot.getElementById('update-recipe-direction');
 
     /**
      * This function is called when the publish button is clicked and it sends the new inputted data to the database
@@ -354,26 +364,18 @@ class UpdateRecipePage extends HTMLElement {
     function updateData() {
       // Select all ingredients
       //let ingredientList = this.shadowRoot.getElementById()
+      // console.log(imgFile.files[0]);
+      // let imageData = new FormData();
+      // imageData.append('file', imgFile.files[0]);
+      // console.log(imageData);
       let quantity = ingredientList.querySelectorAll('input[name="quantity"]');
       let unit = ingredientList.querySelectorAll('input[name="unit"]');
-      let ingredient = ingredientList.querySelectorAll(
-        'input[name="ingredientName"]'
-      );
+      let ingredient = ingredientList.querySelectorAll('input[name="ingredientName"]');
 
       // Select all input from Direction Steps
       let directionsList = directions.querySelectorAll(
         'textarea[name="directionStep"]'
       );
-
-      //let image = '';
-      // let fileReader = new FileReader();
-      // fileReader.onload = function () {
-      //   if (fileReader.result.length > 0) {
-      //     image = fileReader.result;
-      //   }
-      // };
-      // console.log(photo.files[0]);
-      // fileReader.readAsDataURL(photo.files[0]);
 
       // For loop for upload all ingredient information
       let extendedIngredients = [];
@@ -410,14 +412,14 @@ class UpdateRecipePage extends HTMLElement {
 
       // Send Data
       let recipe = {
-        //image: image,
+        image: imgFile.files[0],
         readyInMinutes: readyInMinutes,
         servings: servings.value,
         title: title.value,
         summary: summary.value,
         extendedIngredients: extendedIngredients,
         analyzedInstructions: instructions,
-        author: 'Martin1234', // TODO: Need to update with curr user
+        author: localStorage.getItem('username'), // TODO: Need to update with curr user
         id: data.recipe['id'],
       };
 
@@ -425,8 +427,8 @@ class UpdateRecipePage extends HTMLElement {
       // Create the POST message to send to the backend
       let newData = {
         type: 'updateRecipe',
-        username: 'Martin1234', // TODO: Need to update with curr user
-        password: '1234', // TODO: Need to update with curr password
+        username: localStorage.getItem('username'), // TODO: Need to update with curr user
+        token: localStorage.getItem('token'), // TODO: Need to update with curr password
         recipe: recipe,
         title: recipe['title'],
       };

@@ -3,6 +3,7 @@
 //TODO
 
 // IMPORTS
+// import { formatters } from 'stylelint';
 import { router } from '../scripts/main.js';
 import { POST } from '../scripts/request.js';
 
@@ -28,6 +29,27 @@ class AddRecipePage extends HTMLElement {
           background-size: cover;
           padding: 23.5px;
           color: white;
+        }
+        div {
+          margin-left: 5%;
+        }
+        .publish-button {
+          background-color: white;
+          border-radius: 9px;
+          border: 1.5px solid #ca676a;
+          text-align: center;
+          min-width: 8%;
+          height: 16pt;
+          margin-left: 5%;
+        }
+        button {
+          background-color: white;
+          border-radius: 9px;
+          border: 1.5px solid #ca676a;
+          text-align: center;
+          min-width: 8%;
+          height: 16pt;
+          margin-left: 5%;
         }
         `;
     article.innerHTML = `
@@ -139,7 +161,7 @@ class AddRecipePage extends HTMLElement {
         <button id="addDirectionButton"> Add More </button>
       </div>
       <br>
-      <input type="submit" value="Publish">
+      <input class="publish-button" type="submit" value="Publish">
       </form>
       <!--TO DO delete Directions button-->
 
@@ -247,9 +269,10 @@ class AddRecipePage extends HTMLElement {
     // Add images/Display Image when the file is been addes
     var img = this.shadowRoot.getElementById('recipeImage');
     var imgFile = this.shadowRoot.querySelector('input[type="file"]');
-
+    
     imgFile.addEventListener('change', function () {
       imageDisplay(this);
+      console.log(imgFile.files[0]);
     });
 
     function imageDisplay(input) {
@@ -286,6 +309,7 @@ class AddRecipePage extends HTMLElement {
     });
 
     // Get elements of the form
+
     // const photo = this.shadowRoot.getElementById('img'); TODO: photo issue needs to be resolved
     const cookingTimeHour = this.shadowRoot.getElementById(
       '#input--cook-time-hour'
@@ -319,15 +343,20 @@ class AddRecipePage extends HTMLElement {
       );
 
       // Select all input from file image
-      let image = '';
-      let fileReader = new FileReader();
-      fileReader.onload = function () {
-        if (fileReader.result.length > 0) {
-          image = fileReader.result;
-        }
-      };
-      // console.log(photo.files[0]);
-      // fileReader.readAsDataURL(photo.files[0]);
+      //let image = photo.querySelector('input[type="file"]');
+      //console.log(image);
+      //console.log(photo);
+      // console.log(imgFile.files[0]);
+      // let imageData = new FormData();
+      // imageData.append('file', imgFile.files[0]);
+      // console.log(imageData);
+
+      // let fileReader = new FileReader();
+      // fileReader.onload = function () {
+      //   if (fileReader.result.length > 0) {
+      //     image = fileReader.result;
+      //   }
+      // };
 
       // For loop for upload all ingredient information
       let extendedIngredients = [];
@@ -365,21 +394,21 @@ class AddRecipePage extends HTMLElement {
       // Create recipe JSON to send to the backend
       setTimeout(function () {
         let recipe = {
-          image: image,
+          // image: imageData,
           readyInMinutes: readyInMinutes,
           servings: servings.value,
           title: title.value,
           summary: summary.value,
           extendedIngredients: extendedIngredients,
           analyzedInstructions: instructions,
-          author: 'Martin1234', // TODO: Need to update with curr user
+          author: localStorage.getItem('username'), // TODO: Need to update with curr user
         };
 
         // Create the POST message to send to the backend
         let data = {
           type: 'addRecipe',
-          username: 'Martin1234', // TODO: Need to update with curr user
-          password: '1234', // TODO: Need to update with curr password
+          username: localStorage.getItem('username'), // TODO: Need to update with curr user
+          token: localStorage.getItem('token'), // TODO: Need to update with curr password
           recipe: recipe,
           title: title.value,
         };

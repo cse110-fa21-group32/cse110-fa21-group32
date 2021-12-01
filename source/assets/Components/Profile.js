@@ -139,7 +139,10 @@ class ProfilePage extends HTMLElement {
       console.log('Clicked');
     });
 
-    getRecipes('Martin1234', '1234', this.shadowRoot); // TODO: change user/pass
+    const user = localStorage.getItem('username');
+    const token = localStorage.getItem('token');
+    getRecipes(user, token, this.shadowRoot);
+
   }
 
   set recipes(recipes) {}
@@ -150,13 +153,13 @@ class ProfilePage extends HTMLElement {
 /**
  *
  * @param {*} username
- * @param {*} password
+ * @param {*} token
  * @param {*} shadowRoot
  */
-function getRecipes(username, password, shadowRoot) {
+function getRecipes(username, token, shadowRoot) {
   const searchReq = `type=getCustomizedRecipeIDs&user=${encodeURIComponent(
     username
-  )}&pass=${encodeURIComponent(password)}`;
+  )}&token=${encodeURIComponent(token)}`;
 
   /**
    *

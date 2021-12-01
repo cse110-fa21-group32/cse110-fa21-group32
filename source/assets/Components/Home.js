@@ -22,12 +22,68 @@ class HomePage extends HTMLElement {
     *{
       clear: both;
     }
+    .recipe-grid {
+      margin-left: 5%;
+      display: grid;
+      grid-template-columns: auto auto auto;
+      grid-column-gap: 3%;
+      grid-row-gap: 3%;
+      margin-right: 5%;
+    }
+    .recipe-picture {
+      max-width: 100%;
+    }
+    button {
+      background-color: white;
+      border-radius: 9px;
+      border: 1.5px solid #ca676a;
+      text-align: center;
+      min-width: 8%;
+      height: 16pt;
+    }
     `;
     article.innerHTML = `
         <!--<h1>Home Page</h1>-->
         <!--ADD RECIPES HERE-->
         <p id="#user-status"></p>
         <p id="#user-email"></p>
+        <div class="recipe-grid">
+        <div>
+          <img class="recipe-picture" src="https://spoonacular.com/recipeImages/634559-556x370.jpg"/>
+        </div>
+
+        <div>
+          <img class="recipe-picture" src="https://spoonacular.com/recipeImages/634629-556x370.jpg"/>
+        </div>
+
+        <div>
+          <img class="recipe-picture" src="https://spoonacular.com/recipeImages/624889-556x370.jpg"/>
+        </div>
+
+        <div>
+          <img class="recipe-picture" src="https://spoonacular.com/recipeImages/624779-556x370.jpg"/>
+        </div>
+
+        <div>
+          <img class="recipe-picture" src="https://spoonacular.com/recipeImages/634229-556x370.jpg"/>
+        </div>
+
+        <div>
+          <img class="recipe-picture" src="https://spoonacular.com/recipeImages/624449-556x370.jpg"/>
+        </div>
+
+        <div>
+          <img class="recipe-picture" src="https://spoonacular.com/recipeImages/634769-556x370.jpg"/>
+        </div>
+
+        <div>
+          <img class="recipe-picture" src="https://spoonacular.com/recipeImages/634779-556x370.jpg"/>
+        </div>
+
+        <div>
+          <img class="recipe-picture" src="https://spoonacular.com/recipeImages/624569-556x370.jpg"/>
+        </div>
+        </div>
         <button id="#btn-delete" type="button">Delete User</button>
         <button id="#btn-recipe" type="button">See Added Recipes</button>
         <div id="#recipeDiv">
@@ -55,20 +111,22 @@ class HomePage extends HTMLElement {
     });
 
     // Display current user info TODO: move to other Profile.js
-    const urlParams = new URLSearchParams(window.location.search);
-    const user = urlParams.get('user');
-    const pass = urlParams.get('pass');
+    //const urlParams = new URLSearchParams(window.location.search); Old way of URL searching (bad for security)
+
+    //Looks in LocalStorage to get username and token.
+    const user = localStorage.getItem('username');
+    const token = localStorage.getItem('token');
 
     const userStatus = this.shadowRoot.getElementById('#user-status');
     userStatus.innerHTML = `Currently logged in as ${user}`;
 
     const userEmail = this.shadowRoot.getElementById('#user-email');
-    getEmail(user, pass, userEmail);
+    getEmail(user, token, userEmail);
 
     const deleteBtn = this.shadowRoot.getElementById('#btn-delete');
     deleteBtn.addEventListener('click', () => {
       console.log('DELETE');
-      deleteUser(user, pass);
+      deleteUser(user, token);
     });
   }
 }
@@ -78,12 +136,12 @@ customElements.define('home-page', HomePage);
 /**
  * TODO:
  * @param {String} username
- * @param {String} password
+ * @param {String} token
  */
-function getEmail(username, password, userEmail) {
+function getEmail(username, token, userEmail) {
   const emailReq = `type=request&elem=email&user=${encodeURIComponent(
     username
-  )}&pass=${encodeURIComponent(password)}`;
+  )}&token=${encodeURIComponent(token)}`;
 
   /**
    * TODO:
@@ -100,13 +158,13 @@ function getEmail(username, password, userEmail) {
 /**
  * TODO:
  * @param {String} username
- * @param {String} password
+ * @param {String} token
  */
-function deleteUser(username, password) {
+function deleteUser(username, token) {
   let msg = {
-    type: 'delete',
+    type: 'deleteUser',
     username: username,
-    password: password,
+    token: token,
   };
 
   /**
