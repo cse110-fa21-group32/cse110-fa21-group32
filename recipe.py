@@ -7,10 +7,13 @@ import sqlite3
 import pickle
 import requests
 import json
+from threading import Lock
 
 class Recipe_DB:
     def __init__(self):
+        self.lock = Lock()
         # Spoonacular 
+        self.lock.acquire(True)
         self.url = "https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/"
         self.API_KEY = '1414109596ee45759cfec0f52917cc31'
         self.headers = {
@@ -42,6 +45,7 @@ class Recipe_DB:
         self.custom_recipe_count = 10000000  # Spoonacular IDs have 7 digits; custom have one more to avoid collision
         self.cur.execute('SELECT MAX(ID) FROM Recipes')
         result = self.cur.fetchone()
+        self.lock.release()
         if result[0] != None and result[0] >= self.custom_recipe_count: self.custom_recipe_count = result[0] + 1
         print(result[0])
         print(self.custom_recipe_count)
@@ -71,9 +75,10 @@ class Recipe_DB:
             url = src['sourceUrl']
             source = pickle.dumps(src)
             image = src['image']
-
+            self.lock.acquire(True)
             self.cur.execute("INSERT INTO Recipes(ID, name, author, url, src, image) VALUES(?, ?, ?, ?, ?, ?);", (ID, name, author, url, source, image))
             self.conn.commit()
+            self.lock.release()
             return True
         except sqlite3.IntegrityError as er: # username is primary key so no duplicates allowed
             print('ERROR: Recipe ' + name + ' already exists.')
@@ -82,10 +87,12 @@ class Recipe_DB:
 
     def fetchRecipeByID(self, ID):
         # Return user-requested recipe json from DB/Spoonacular.
+        self.lock.acquire(True)
         self.cur.execute('SELECT src FROM Recipes WHERE ID = %s' % (ID))
         result = self.cur.fetchall()
         # print(result[0])
         if (len(result) != 0):
+            self.lock.release()
             return pickle.loads(result[0][0])
         else:
             # Call Spoonacular API
@@ -94,6 +101,7 @@ class Recipe_DB:
 
             # Cache recipe in DB
             self.cacheRecipe(ID, src)
+            self.lock.release()
             return src
 
     def createRecipe(self,recipe):
@@ -103,6 +111,7 @@ class Recipe_DB:
             Output:
             - ID of the recipe
         '''
+        self.lock.acquire(True)
         id = self.custom_recipe_count
         self.custom_recipe_count += 1
         name = recipe['title']
@@ -111,18 +120,20 @@ class Recipe_DB:
         src = pickle.dumps(recipe)
         self.cur.execute('INSERT INTO Recipes(ID, author, name, src) VALUES(?, ?, ?, ?)', (id, author, name, src))
         self.conn.commit()
+        self.lock.release()
         # TODO: Integrity check
         return id
 
     def updateRecipe(self, id, updatedVal):
         
         #name = pickle.loads(self.cur.fetchall[0])
+        self.lock.acquire(True)
         self.cur.execute('SELECT src FROM Recipes WHERE ID = %d' % (id))
         result = self.cur.fetchall()
 
         if (len(result) < 1):
+            self.lock.release()
             return
-
         recipes = pickle.loads(result[0][0])
         #recipes['name'] = updatedVal['name']
         for key in updatedVal:
@@ -141,19 +152,15 @@ class Recipe_DB:
         #query = 'UPDATE Recipes SET' + ', '.join(['%s = ?' % (p[1]) for p in updatedVal.items()]) 
         #self.cur.execute(query, ([p[0] for p in updatedVal.items()]))
         self.conn.commit()
+        self.lock.release()
         
     def removeRecipe(self,id):
         '''
             Input:
             - recipe id
         '''
+        self.lock.acquire(True)
         self.cur.execute('DELETE FROM Recipes WHERE ID = %d' % (id))
         self.conn.commit()
-        # TODO: Check if id exists? 
-
-if __name__ == '__main__':
-    db = Recipe_DB()
-    # db.searchRecipeByKeyword('pasta')
-    db.fetchRecipeByID("654959")
-    #id = db.createRecipe({'author': 'Chad' , 'name': 'Pasta With Chickpeas and Kale', 'image': 'https://spoonacular.com/recipeImages/654905-312x231.jpg', 'imageType': 'jpg'})
-    db.updateRecipe(1000000, {'author': 'Bagrat'})
+        self.lock.release()
+        # TODO: Check if id exists?

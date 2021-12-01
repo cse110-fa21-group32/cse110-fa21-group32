@@ -5,11 +5,12 @@ import sqlite3
 import pickle 
 import socket
 import hashlib
-
+from threading import Lock
 #Instance Variables: conn, cur
 
 class User_DB:
     def __init__(self, db = 'users.db'):
+        self.lock = Lock()
         self.conn = sqlite3.connect('users.db', check_same_thread=False) 
         self.cur = self.conn.cursor()
         # Create DB
@@ -34,7 +35,8 @@ class User_DB:
         self.conn.close()
 
     def createUser(self, username, password, email, fname, lname):
-        print("HERE")
+        self.lock.acquire(True)
+        print("Creating User...")
         '''
         Inputs: 
         - username: string
@@ -56,9 +58,11 @@ class User_DB:
             empty = pickle.dumps([])
             self.cur.execute("INSERT INTO Users VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", (username, password, token, email, fname, lname, empty, empty, empty, empty, empty))
             self.conn.commit()
+            self.lock.release()
             return True
         except sqlite3.IntegrityError as er: # username is primary key so no duplicates allowed
             print('ERROR: User ' + username + ' already exists.')
+            self.lock.release()
             return False
 
     def request(self, username, token, keys):
@@ -71,27 +75,33 @@ class User_DB:
         Output:
         - requested info or None if username/token don't match/exist
         '''
+        self.lock.acquire(True)
         self.cur.execute('SELECT %s FROM Users WHERE Username = ? AND Token = ?' % (', '.join(keys)), (username, token))
         profile = self.cur.fetchall() # fetchall returns all matched records, i.e. correct username & token
         if len(profile) > 1: # since no duplicate allowed, should have only one profile
             print('ERROR: Duplicate users found.')
+            self.lock.release()
             return None
         elif len(profile) == 0: # user not found / token incorrect
+            self.lock.release()
             return None
         else:
+            self.lock.release()
             return profile[0]
 
     def login(self, username, password):
-
+        self.lock.acquire(True)
         self.cur.execute('SELECT Password, Token FROM Users WHERE Username = "%s"' % (username))
         profile = self.cur.fetchall()
         print(profile)
         dbPassword = profile[0][0] #database password
 
         if(str(password) == str(dbPassword)): #Enforce Consistent Type Checking (String VS Int)
+            self.lock.release()
             return profile[0][1] #database token
         else:
             print("User does not exist in database!")
+            self.lock.release()
             return None
 
 
@@ -124,15 +134,20 @@ class User_DB:
         self.conn.commit()
     
     def deleteUser(self,username,token):
+        self.lock.acquire(True)
         # Updates users with username, password, email, first & last name. Other stuff will be NULL.
         self.cur.execute("DELETE FROM Users WHERE username = ? AND token = ? ", (username, token))
         self.conn.commit()
+        self.lock.release()
         return True
     
     def addRecipe(self, username, token, id):
+        self.lock.acquire(True)
         self.cur.execute('SELECT Recipes FROM Users WHERE Username = ? AND Token = ?', (username, token))
         result = self.cur.fetchall()
-        if len(result) == 0: return # no user found
+        if len(result) == 0: 
+            self.lock.release()
+            return # no user found
         if result[0][0] is None : 
             recipes = pickle.dumps([id])
         else:
@@ -141,11 +156,15 @@ class User_DB:
             recipes = pickle.dumps(recipes)
         self.updateUser(username, token, {'Recipes': recipes})
         self.conn.commit()
+        self.lock.release()
 
     def removeRecipe(self, username, token, id):
+        self.lock.acquire(True)
         self.cur.execute('SELECT Recipes FROM Users WHERE Username = ? AND Token = ?', (username, token))
         result = self.cur.fetchall()
-        if len(result) == 0: return # no user found
+        if len(result) == 0: 
+            self.lock.release()
+            return # no user found
         if result[0][0] is None: 
             recipes = pickle.dumps([])
         else:
@@ -158,3 +177,4 @@ class User_DB:
                 recipes = pickle.dumps(recipes)
         self.updateUser(username, token, {'Recipes': recipes})
         self.conn.commit()
+        self.lock.release()
