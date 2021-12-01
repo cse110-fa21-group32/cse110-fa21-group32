@@ -1,4 +1,4 @@
-const SERVER_URL = 'http://127.0.0.1:5000';
+const SERVER_URL = 'https://34.125.225.39:5000/';
 
 /**
  * Sends a POST request to the backend. Calls postFn after

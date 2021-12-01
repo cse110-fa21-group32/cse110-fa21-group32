@@ -4,11 +4,7 @@
 
 // GLOBALS
 // TODO: edit the local server URL to hosted server
-<<<<<<< HEAD
-const SERVER_URL = 'http://34.82.136.85:5000/';
-=======
-const SERVER_URL = 'http://127.0.0.1:5000/';
->>>>>>> a43d4e4d6723fd69bdb71e3c26e119f90269790f
+const SERVER_URL = 'https://34.125.225.39:5000/';
 
 /**
  * TODO:
