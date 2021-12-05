@@ -4,7 +4,7 @@
 
 // GLOBALS
 // TODO: edit the local server URL to hosted server
-const SERVER_URL = 'https://34.125.225.39:5000/';
+const SERVER_URL = 'https://cookez.click';
 
 /**
  * TODO:
