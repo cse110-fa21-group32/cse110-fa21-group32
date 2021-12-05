@@ -8,7 +8,8 @@ import { GET } from '../scripts/request.js';
 
 /**
  * Class: SearchResultsPage
- * TODO:
+ * Displays brief recipe information based on the search
+ * keyphrase. Each recipe result links to the dedicated recipe page.
  */
 class SearchResultsPage extends HTMLElement {
   constructor() {

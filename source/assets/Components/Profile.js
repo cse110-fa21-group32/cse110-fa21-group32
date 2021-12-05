@@ -6,7 +6,8 @@ import { GET /*, POST*/ } from '../scripts/request.js';
 
 /**
  * Class: ProfilePage
- * TODO:
+ * Shows user information and shows recipes created by the user.
+ * Also allows for updating user account information.
  */
 class ProfilePage extends HTMLElement {
   constructor() {
@@ -80,7 +81,8 @@ class ProfilePage extends HTMLElement {
             <ul>
                 <li><a href="#profile-page-recipeID" id="UserRec">Recipes</a></li><br>
                 <li><a href="#profile-page-reviewsID" id="UserRev">Reviews</a></li><br>
-                <li><button id="#delete-user" type="button">Delete User</button></li>
+                <li id="#section-edit-profile"><button class="normal-button" id="#button-edit-profile" type="button">Edit Profile</button></li>
+
             </ul>
         </th>
         </table>
@@ -100,7 +102,6 @@ class ProfilePage extends HTMLElement {
         <!--Profile Page Reviews-->
         <div id="profile-page-reviewID" class="profile-page-review">
             <p>NOT AVAILABLE</p>
-            <button>REMOVE ME 2</button>
             <br>
         </div>
         `;
@@ -134,15 +135,31 @@ class ProfilePage extends HTMLElement {
       reviewsInProfile.style.display = 'contents';
     });
 
-    const btn = this.shadowRoot.getElementById('#delete-user');
-    btn.addEventListener('click', () => {
-      console.log('Clicked');
-    });
-
     const user = localStorage.getItem('username');
     const token = localStorage.getItem('token');
     getRecipes(user, token, this.shadowRoot);
 
+    const editProfileBtn = this.shadowRoot.getElementById(
+      '#button-edit-profile'
+    );
+
+    router.addPage('update-user-page', function () {
+      document.getElementById('#section--profile').classList.remove('shown');
+      document.getElementById('#section--update-user').classList.add('shown');
+      console.log(document.getElementById('#section--update-user'));
+    });
+
+    editProfileBtn.addEventListener('click', () => {
+      const updateUserPage = document.createElement('update-user-page');
+
+      updateUserPage.classList.add('shown');
+      document.getElementById('#section--update-user').innerHTML = '';
+      document
+        .getElementById('#section--update-user')
+        .appendChild(updateUserPage);
+      router.navigate('update-user-page');
+    });
+    
   }
 
   set recipes(recipes) {}
@@ -170,6 +187,11 @@ function getRecipes(username, token, shadowRoot) {
       fetchRecipe(data.ID[i], shadowRoot);
     }
 
+    /**
+     *
+     * @param {*} recipeId
+     * @param {*} shadowRoot
+     */
     function fetchRecipe(recipeId, shadowRoot) {
       const fetchReq = `type=fetchRecipe&id=${encodeURIComponent(recipeId)}`;
 

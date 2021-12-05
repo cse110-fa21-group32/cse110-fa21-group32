@@ -6,7 +6,8 @@
 
 /**
  * Class: FavRecipesPage
- * TODO:
+ * A page that will show the user the recipes in their
+ * favorites list and link to the recipe view for each.
  */
 class FavRecipesPage extends HTMLElement {
   constructor() {

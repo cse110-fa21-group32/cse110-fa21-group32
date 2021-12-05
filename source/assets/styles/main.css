@@ -7,25 +7,50 @@ section:not(section.shown) {
 }
 
 @font-face {
-  font-family: "IBM Plex Sans";
+  font-family: "IBM Plex Sans", sans-serif;
   src: url("IBM_Plex_Sans/IBMPlexSans-Bold.ttf");
+  font-weight: bold;
+}
+
+@font-face {
+  font-family: "IBM Plex Sans", sans-serif;
   src: url("IBM_Plex_Sans/IBMPlexSans-BoldItalic.ttf");
-  src: url("IBM_Plex_Sans/IBMPlexSans-ExtraLight.ttf");
-  src: url("IBM_Plex_Sans/IBMPlexSans-ExtraLightItalic.ttf");
+  font-weight: bold;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: "IBM Plex Sans", sans-serif;
   src: url("IBM_Plex_Sans/IBMPlexSans-Italic.ttf");
+  font-style: italic;
+  font-weight: normal;
+}
+
+@font-face {
+  font-family: "IBM Plex Sans", sans-serif;
   src: url("IBM_Plex_Sans/IBMPlexSans-Light.ttf");
+  font-weight: lighter;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "IBM Plex Sans", sans-serif;
   src: url("IBM_Plex_Sans/IBMPlexSans-LightItalic.ttf");
-  src: url("IBM_Plex_Sans/IBMPlexSans-Medium.ttf");
-  src: url("IBM_Plex_Sans/IBMPlexSans-MediumItalic.ttf");
+  font-weight: lighter;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: "IBM Plex Sans", sans-serif;
   src: url("IBM_Plex_Sans/IBMPlexSans-Regular.ttf");
-  src: url("IBM_Plex_Sans/IBMPlexSans-SemiBold.ttf");
-  src: url("IBM_Plex_Sans/IBMPlexSans-SemiBoldItalic.ttf");
-  src: url("IBM_Plex_Sans/IBMPlexSans-Thin.ttf");
-  src: url("IBM_Plex_Sans/IBMPlexSans-ThinItalic.ttf");
+  font-weight: normal;
+  font-style: normal;
 }
 
 * {
   font-family: "IBM Plex Sans", sans-serif;
+  font-weight: normal;
+  font-style: normal;
 }
 
 /* The sidepanel menu */
@@ -64,6 +89,18 @@ section:not(section.shown) {
   color: #f1f1f1;
 }
 
+#LinkToFav:hover {
+  background-color: #86a383 !important;
+}
+
+#LinkToAdd:hover {
+  background-color: #9dbc9a !important;
+}
+
+#LinkToWrite:hover {
+  background-color: #b2d8af !important;
+}
+
 /* Position and style the close button (top right corner) */
 .sidepanel .closebtn {
   position: absolute;
@@ -72,6 +109,9 @@ section:not(section.shown) {
   font-size: 36px;
   margin-left: 50px;
   background: none;
+  outline: none;
+  box-shadow: none;
+  border: none;
 }
 
 /* Style the button that is used to open the sidepanel */

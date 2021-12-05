@@ -1,9 +1,9 @@
 // CookingMode.js
 
-// TODO: IMPORTS (i don't know if we need this but it works for now without import)
-
 /**
  * Class: CookingMode
+ * Redirect option from the recipe view that splits the directions of
+ * the recipe onto separate views.
  */
 class CookingMode extends HTMLElement {
   constructor() {
@@ -46,49 +46,49 @@ class CookingMode extends HTMLElement {
    * Sets all the elements of the update recipe page to the recipes current data
    * @param data Previous recipe data to set the placeholder values
    */
-   set data(data) {
+  set data(data) {
     this.json = data;
 
     //
     const content = data.recipe.analyzedInstructions[0].steps;
-    //initialize page
-    for(let i = 0; i < content.length; i++){
-
-      //initialize current step 
+    // initialize page
+    for (let i = 0; i < content.length; i++) {
+      // initialize current step
       let cookingStep = this.shadowRoot.getElementById('cooking-steps');
       let cookingBtn = this.shadowRoot.getElementById('btnNav');
       let currStep = document.createElement('p');
       currStep.setAttribute('id', `step${i + 1}`);
-      currStep.innerHTML = `${i+1}`+ '.' + content[i].step;
+      currStep.innerHTML = `${i + 1}` + '.' + content[i].step;
       cookingStep.appendChild(currStep);
 
-      //let other than first step be invisible initially
-      if(i != 0){
+      // let other than first step be invisible initially
+      if (i != 0) {
         currStep.setAttribute('style', 'display:none');
       }
 
-      //initialize all buttons
+      // initialize all buttons
       let currBtn = document.createElement('button');
       currBtn.setAttribute('id', `btn${i + 1}`);
-      currBtn.innerHTML = `${i + 1}`
+      currBtn.innerHTML = `${i + 1}`;
       cookingBtn.appendChild(currBtn);
     }
 
-    for(let i = 0; i < content.length; i++){
+    for (let i = 0; i < content.length; i++) {
       let curr = this.shadowRoot.querySelectorAll('button')[i];
       let pages = this.shadowRoot.querySelectorAll('p');
       curr.addEventListener('click', () => {
-        for(let j = 0; j < content.length; j++){
-          if(j == i){
+        for (let j = 0; j < content.length; j++) {
+          if (j == i) {
             pages[j].setAttribute('style', 'display: inline');
-          }
-          else{
+          } else {
             pages[j].setAttribute('style', 'display: none');
           }
         }
       });
     }
-   }
+  }
 }
 
 customElements.define('cooking-mode-page', CookingMode);
+
+// EXPORT

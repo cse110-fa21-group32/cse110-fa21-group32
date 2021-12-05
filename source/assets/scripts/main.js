@@ -5,6 +5,7 @@ const pageNames = [
   'home',
   'grocery',
   'profile',
+  'update-user',
   'recipe',
   'search-results',
   'cooking-mode',

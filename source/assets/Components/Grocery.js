@@ -6,7 +6,8 @@
 
 /**
  * Class: GroceryPage
- * TODO:
+ * The page which shows the list of ingredients belonging to the
+ * user. Allows for editing the list manually and adding from recipe view.
  */
 class GroceryPage extends HTMLElement {
   constructor() {
@@ -78,10 +79,10 @@ class GroceryPage extends HTMLElement {
     this.shadowRoot.append(styles, article);
 
     const groceryList = this.shadowRoot.getElementById('grocery-list');
-    
+
     // Add the input text to the list if user click "Add to the list"
     const addButton = this.shadowRoot.getElementById('add-icon');
-    addButton.addEventListener('click', e =>{
+    addButton.addEventListener('click', (e) => {
       e.preventDefault();
       addNewIngredient();
     });
@@ -89,7 +90,7 @@ class GroceryPage extends HTMLElement {
     const myIngredient = this.shadowRoot.getElementById('#my-input');
     const myForm = this.shadowRoot.getElementById('#my-list');
 
-    function addNewIngredient(){
+    function addNewIngredient() {
       const element = myIngredient.querySelector('input[type="text"]');
       const div = document.createElement('div');
       const currElement = document.createElement('input');
@@ -103,18 +104,17 @@ class GroceryPage extends HTMLElement {
       myForm.append(div);
     }
 
-    //Delete ingredients when user clicked Delete Button 
+    //Delete ingredients when user clicked Delete Button
     const deleteButton = this.shadowRoot.getElementById('delete');
-    deleteButton.addEventListener('click', e => {
+    deleteButton.addEventListener('click', (e) => {
       e.preventDefault();
       deleteIngredient();
     });
 
-    function deleteIngredient(){
+    function deleteIngredient() {
       const elements = groceryList.querySelectorAll('input[type="checkbox"]');
-      for(let i = 0; i < elements.length; i++)
-      {
-        if(elements[i].checked == true){
+      for (let i = 0; i < elements.length; i++) {
+        if (elements[i].checked == true) {
           elements[i].parentElement.remove();
         }
       }
@@ -142,47 +142,43 @@ class GroceryPage extends HTMLElement {
     //   POST(data, afterDelete);
     // });
 
-    //line through ingredients when user clicked Checked Button 
+    //line through ingredients when user clicked Checked Button
     const checkedButton = this.shadowRoot.getElementById('checked');
-    checkedButton.addEventListener('click', e => {
+    checkedButton.addEventListener('click', (e) => {
       e.preventDefault();
       checkedIngredient();
     });
 
-    function checkedIngredient(){
+    function checkedIngredient() {
       const elements = groceryList.querySelectorAll('input[type="checkbox"]');
-      for(let i = 0; i < elements.length; i++)
-      {
-        if(elements[i].checked == true){
+      for (let i = 0; i < elements.length; i++) {
+        if (elements[i].checked == true) {
           let complete = elements[i].parentElement.querySelector('label');
           let findS = elements[i].parentElement.getElementsByTagName('s');
           let s = document.createElement('s');
-          if(findS.length == 0)
-          {
+          if (findS.length == 0) {
             s.append(complete);
             elements[i].parentElement.append(s);
-          }
-          else{
+          } else {
             elements[i].parentElement.append(complete);
             elements[i].parentElement.querySelector('s').remove();
           }
-
         }
       }
     }
 
     //TODO:
     //1. Backend Save Data (under user ID)
-    //2. Get the Data 
-    //3. 
+    //2. Get the Data
+    //3.
 
     /* ADDED */
-     /* Dummy Test. Delete this after integration with backend. */
+    /* Dummy Test. Delete this after integration with backend. */
     // var name = "Ingredient name";
     // var amount = 3;
     // var unit = "mg";
     // this.shadowRoot.querySelector("button").addEventListener("click", e => {
-    //     e.preventDefault();   
+    //     e.preventDefault();
     //     let ingredientsList = this.shadowRoot.querySelector('table');
     //     ingredientsList.innerHTML += '<tr><td><input type="checkbox"></td><td>' + name + '</td><td>' + amount + unit + '</td></tr>'
     //     //ingredientsList.innerHTML += ingredient;
@@ -190,7 +186,7 @@ class GroceryPage extends HTMLElement {
 
     /* Integration Test. Modify this. */
     // this.shadowRoot.getElementById("test").addEventListener("click", e => {
-    //     e.preventDefault();   
+    //     e.preventDefault();
     //     loadIngredientList();
     // });
 

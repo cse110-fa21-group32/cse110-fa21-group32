@@ -104,6 +104,28 @@ jobs:
       - name: Run CSS linter
         run: npx stylelint source/assets/styles/*.css
 
+  # Reference: https://github.com/marketplace/actions/jsdoc-action
+  js-doc:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: JSDoc Build
+        uses: andstor/jsdoc-action@v1
+        with:
+          source_dir: ./source/assets
+          output_dir: ./out
+          config_file: jsdoc.conf.json
+          template: minami
+          front_page: JSDOC.md
+
+      - name: JSDoc Deploy
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          deploy_key: ${{ secrets.ACTIONS_DEPLOY_KEY }}
+          publish_dir: ./out
+
   # minify:
   #   needs: [build, js-eslint, css-lint, html-validate]
   #   runs-on: ubuntu-latest

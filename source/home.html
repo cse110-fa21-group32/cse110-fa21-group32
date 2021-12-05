@@ -11,6 +11,7 @@
   <!-- <script src="assets/components/Calendar.js" type="module"></script> -->
   <script src="assets/Components/Grocery.js" type="module"></script>
   <script src="assets/Components/Profile.js" type="module"></script>
+  <script src="assets/Components/UpdateUser.js" type="module"></script>
   <script src="assets/Components/SearchBar.js" type="module"></script>
   <script src="assets/Components/SearchResults.js" type="module"></script>
 
@@ -45,10 +46,10 @@
           &times;
         </button>
 
-        <a id="LinkToFav" href="javascript:void(0)">Favorite Recipes</a>
+        <a id="LinkToFav" class="fav" href="javascript:void(0)">Favorite Recipes</a>
         <!-- <a id="LinkLogin" href="userLogin.html">User Login</a> -->
-        <a id="LinkToAdd" href="javascript:void(0)">Add a Recipe</a>
-        <a id="LinkToWrite" href="javascript:void(0)">Write a Review</a>
+        <a id="LinkToAdd" class="add" href="javascript:void(0)">Add a Recipe</a>
+        <a id="LinkToWrite"  class="write" href="javascript:void(0)">Write a Review</a>
       </div>
     </section>
 
@@ -79,6 +80,9 @@
 
   <!--Profile Page-->
   <section id="#section--profile"></section>
+
+  <!--Update User Info Page-->
+  <section id="#section--update-user"></section>
 
   <!--Favorites-->
   <section id="#section--fav-recipes"></section>

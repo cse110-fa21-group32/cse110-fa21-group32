@@ -122,6 +122,19 @@ jobs:
       - name: Run CSS linter
         run: npx stylelint source/assets/styles/*.css
 
+  code-climate:
+    needs: [prettier]
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Test & publish code coverage
+        uses: paambaati/codeclimate-action@v3.0.0
+        env:
+          CC_TEST_REPORTER_ID: ${{ secrets.CC_REPORTER_ID }}
+        with:
+          coverageCommand: npm run coverage
+          debug: true
+
   # py-lint:
   #   runs-on: ubuntu-latest
   #   steps:

@@ -6,7 +6,8 @@ import { GET, POST } from '../scripts/request.js';
 
 /**
  * Class: HomePage
- * TODO:
+ * Starting page after loggin in. Shows some basic user info
+ * and some of the favorite/recent recipes.
  */
 class HomePage extends HTMLElement {
   constructor() {
@@ -22,6 +23,22 @@ class HomePage extends HTMLElement {
     *{
       clear: both;
     }
+
+    .todayMeals{
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .recentlyVisited{
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .favorites{
+      display: flex;
+      justify-content: space-between;
+    }
+
     .recipe-grid {
       margin-left: 5%;
       display: grid;
@@ -41,6 +58,7 @@ class HomePage extends HTMLElement {
       min-width: 8%;
       height: 16pt;
     }
+
     `;
     article.innerHTML = `
         <!--<h1>Home Page</h1>-->
@@ -87,12 +105,28 @@ class HomePage extends HTMLElement {
         <button id="#btn-delete" type="button">Delete User</button>
         <button id="#btn-recipe" type="button">See Added Recipes</button>
         <div id="#recipeDiv">
+
+        <h3>Today's Meals</h3>
+        <div id=#todayMeals class="todayMeals">
+            <div><button id="ExpRecipe" type="menu">Recipe 1 (click this one)</button></div>
+            <div><button type="menu">Recipe 2 (not linked)</button></div>
+            <div><button type="menu">Recipe 3 (not linked)</button></div>
         </div>
-        <ul>
-            <li> <button id="ExpRecipe" type="menu">Recipe 1 (click this one)</button></li>
-            <li> <button type="menu">Recipe 2 (not linked)</button></li>
-            <li> <button type="menu">Recipe 3 (not linked)</button></li>
-        </ul>
+
+        <h3>Recently Visited</h3>
+        <div id=#recentlyVisited class="recentlyVisited">
+              <div><button id="ExpRecipe" type="menu">Recipe 1 (click this one)</button></div>
+              <div><button type="menu">Recipe 2 (not linked)</button></div>
+              <div><button type="menu">Recipe 3 (not linked)</button></div>
+        </div>
+        
+        <h3>Favorites</h3>
+        <div id=#favorites class="favorites">
+              <div> <button id="ExpRecipe" type="menu">Recipe 1 (click this one)</button></div>
+              <div> <button type="menu">Recipe 2 (not linked)</button></div>
+              <div> <button type="menu">Recipe 3 (not linked)</button></div>
+        </div>
+        </div>
         `;
 
     // Append elements to the shadow root
@@ -111,9 +145,8 @@ class HomePage extends HTMLElement {
     });
 
     // Display current user info TODO: move to other Profile.js
-    //const urlParams = new URLSearchParams(window.location.search); Old way of URL searching (bad for security)
 
-    //Looks in LocalStorage to get username and token.
+    // Looks in LocalStorage to get username and token.
     const user = localStorage.getItem('username');
     const token = localStorage.getItem('token');
 
@@ -134,7 +167,7 @@ class HomePage extends HTMLElement {
 customElements.define('home-page', HomePage);
 
 /**
- * TODO:
+ * Fetch the email from the user and display it
  * @param {String} username
  * @param {String} token
  */
@@ -144,7 +177,7 @@ function getEmail(username, token, userEmail) {
   )}&token=${encodeURIComponent(token)}`;
 
   /**
-   * TODO:
+   * Populate the display element with the fetched email
    * @param {*} data
    */
   function getFn(data) {
@@ -156,7 +189,8 @@ function getEmail(username, token, userEmail) {
 }
 
 /**
- * TODO:
+ * Deletes the user from the database
+ * TODO: add a confirmation page
  * @param {String} username
  * @param {String} token
  */
@@ -168,7 +202,7 @@ function deleteUser(username, token) {
   };
 
   /**
-   * TODO:
+   * Redirects to the user login page after deleting user
    */
   function afterDelete() {
     window.location.href = 'userLogin.html';

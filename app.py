@@ -26,10 +26,16 @@ def home_page():
         
         # USER
         # Register (create) the user
+        # NOTE: This uses password, NOT the token.
         if msg['type'] == 'register':
             user_db.createUser(msg['username'], msg['password'], msg['email'], '', '')
             return {'msg': 'Success!'}, 201
           
+        # Update the user
+        if msg['type'] == 'updateUser':
+            user_db.updateUser(msg['username'], msg['token'], msg['newInfo'])
+            return {'msg': 'Success!'}, 201
+
         # Delete the user
         elif msg['type'] == 'deleteUser':
             user_db.deleteUser(msg['username'], msg['token'])
@@ -59,29 +65,29 @@ def home_page():
         # Add a loose ingredient
         elif msg['type'] == 'addIndGrocery':
             username = msg['username']
-            password = msg['password']
+            token = msg['token']
             section_id = msg['id']
             ingred = msg['ingredient']
-            user_db.addIndIngred(username, password, section_id, ingred)
+            user_db.addIndIngred(username, token, section_id, ingred)
         # Add all ingredients of a recipe section
         elif msg['type'] == 'addRecGrocery':
             username = msg['username']
-            password = msg['password']
+            token = msg['token']
             recipe_data = msg['recipe']
-            user_db.addRecIngred(username, password, recipe_data)
+            user_db.addRecIngred(username, token, recipe_data)
         # Remove a loose ingredient
         elif msg['type'] == 'removeIndGrocery':
             username = msg['username']
-            password = msg['password']
+            token = msg['token']
             section_id = msg['id']
             ingred = msg['ingredient']
-            user_db.removeIndIngred(username, password, section_id, ingred)
+            user_db.removeIndIngred(username, token, section_id, ingred)
         # Remove all ingredients of a recipe section
         elif msg['type'] == 'removeRecGrocery':
             username = msg['username']
-            password = msg['password']
+            token = msg['token']
             section_id = msg['id']
-            user_db.removeRecIngred(username, password, section_id)
+            user_db.removeRecIngred(username, token, section_id)
 
     if request.method == 'GET':
         msg = request.args
@@ -106,7 +112,7 @@ def home_page():
                 return response
 
             # TODO: USER delete these functions or update with new token system
-            # Get username and password of user after login TODO: replace with Eamon's edit
+            # Get username and password of user after login NOTE: This uses password, NOT the token
             elif msg['type'] == 'login':
                 username = msg['user']
                 password = msg['pass']
@@ -131,11 +137,11 @@ def home_page():
             # Get <elem> columns from the user based on username + password
             elif msg['type'] == 'getUserInfo':
                 username = msg['user']
-                password = msg['pass']
+                token = msg['token']
                 elem = msg['elem']
                 if(elem == "keys"):
-                    userInfo = user_db.request(username, password, ['keys'])
-                    print(username, password, elem)
+                    userInfo = user_db.request(username, token, ['keys'])
+                    print(username, token, elem)
                     data = {"userInfo": userInfo}
                     print(userInfo)
                     data_json = json.dumps(data, indent=2)
@@ -156,9 +162,9 @@ def home_page():
             # Get the grocery list of the user
             elif msg['type'] == 'getGrocery':
                 username = msg['user']
-                password = msg['pass']
+                token = msg['token']
                 keys = ['Shopping_list']
-                result = user_db.request(username, password, keys)
+                result = user_db.request(username, token, keys)
                 grocery = pickle.loads(result[0])
                 data = {"grocery": grocery}
                 data_json = json.dumps(data, indent=2)

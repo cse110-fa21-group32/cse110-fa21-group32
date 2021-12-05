@@ -8,7 +8,8 @@ import { GET } from '../scripts/request.js';
 
 /**
  * Class: SearchBar
- * TODO:
+ * Search bar element that appears at the top of the page.
+ * Search redirects to the search results page.
  */
 class SearchBar extends HTMLElement {
   constructor() {
@@ -28,14 +29,44 @@ class SearchBar extends HTMLElement {
       overflow: hidden;
       padding: 10px;
     }
+    form{
+      display:flex;
+      flex-direction:row;
+      padding: 2px;
+      box-sizing: border-box;
+      box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+      border-radius: 306px;
+      background: white;
+    }
     input{
+      flex-grow: 2;
+      border: none;
+      background: #FFFFFF;
+      box-sizing: border-box;
+      color: black;
+      border-radius: 306px;
+    }
+    button{
       background-color: white;
+      padding: 0px;
+      outline: none;
+      box-shadow: none;
+      border: none;
+    }
+    img{
+      background-color: white;
+      outline: none;
+    }
+    input:focus{
+      outline: none;
     }
     `;
     article.innerHTML = `
         <form id="searchFormID" name="search-form">
           <input type="text" placeholder="Search..." name="search-phrase">
-          <button type="submit" id="search-icon">Submit</button>
+          <button type="submit" id="search-icon">
+            <img class="searchImage" src="assets/icons/search.svg" height="31.5" />
+          </button>
         </form>
         `;
 

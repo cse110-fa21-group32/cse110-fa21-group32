@@ -1,7 +1,5 @@
 // AddRecipe.js
 
-//TODO
-
 // IMPORTS
 // import { formatters } from 'stylelint';
 import { router } from '../scripts/main.js';
@@ -68,7 +66,7 @@ class AddRecipePage extends HTMLElement {
 
         <!--Add Image-->
         <label for="img"><p><strong>Add Image</strong></p></label>
-        <input type="file" id="imgfile" name="img" accept="image/*"/>
+        <input type="file" id="imgfile" name="img" accept="image/*" required/>
         <p><img id="recipeImage" width="200"/></p>
         <br>
         <br>
@@ -76,13 +74,13 @@ class AddRecipePage extends HTMLElement {
 
         <!--Basic Information-->
         <label>Cooking Time:</label>
-        <input type="text" name="cookingTimeHour" id="#input--cook-time-hour" placeholder="hours..">
-        <input type="text" name="cookintTimeMin" id="#input--cook-time-mins" placeholder="mins..">
+        <input type="text" name="cookingTimeHour" id="#input--cook-time-hour" placeholder="hours.." required>
+        <input type="text" name="cookintTimeMin" id="#input--cook-time-mins" placeholder="mins.." required>
         <br>
         <br>
 
         <label id="servings" for="servings"> No. of Servings: </label>
-        <input type="text" name="numServings" id="#input--no-of-serv">
+        <input type="text" name="numServings" id="#input--no-of-serv" required>
         <br>
 
       <!--Basic Information (Tags/Summary)-->
@@ -123,8 +121,8 @@ class AddRecipePage extends HTMLElement {
       </ul>
 
       <label for="sum"><p><strong>Add Summary: </strong></p></label>
-      <textarea id="addTitle" name="recipeTitle" placeholder="Title:"></textarea><br>
-      <textarea id="addSummary" name="recipeSummary" placeholder="Summary"></textarea>
+      <textarea id="addTitle" name="recipeTitle" placeholder="Title:" required></textarea><br>
+      <textarea id="addSummary" name="recipeSummary" placeholder="Summary" required></textarea>
       <br>
       </div>
     
@@ -138,9 +136,9 @@ class AddRecipePage extends HTMLElement {
           <th>Ingredient</th>
         </tr>
         <tr>
-          <td><input type="text" name="quantity"/></td>
+          <td><input type="text" name="quantity" required/></td>
           <td><input type="text" name="unit"/></td>
-          <td><input type="text" name="ingredientName"/></td>
+          <td><input type="text" name="ingredientName" required/></td>
         </tr>
       </table>
       <!--When click add more should create another new 'tr' with three new inputs-->
@@ -154,7 +152,7 @@ class AddRecipePage extends HTMLElement {
         <p>Direction</p>
         <ol>
           <li>Step:</li>
-          <textarea name="directionStep" id="#input--direction-step"></textarea>
+          <textarea name="directionStep" id="#input--direction-step" required></textarea>
         </ol>
         <br>
         <!--When click add more should create another new textarea for direction-->
@@ -269,10 +267,11 @@ class AddRecipePage extends HTMLElement {
     // Add images/Display Image when the file is been addes
     var img = this.shadowRoot.getElementById('recipeImage');
     var imgFile = this.shadowRoot.querySelector('input[type="file"]');
+    var base64Image = '';
     
     imgFile.addEventListener('change', function () {
       imageDisplay(this);
-      console.log(imgFile.files[0]);
+      //console.log(imgFile.files[0]);
     });
 
     function imageDisplay(input) {
@@ -281,6 +280,7 @@ class AddRecipePage extends HTMLElement {
         reader = new FileReader();
         reader.onload = function (e) {
           img.setAttribute('src', e.target.result);
+          base64Image = e.target.result;
         };
 
         reader.readAsDataURL(input.files[0]);
@@ -343,20 +343,7 @@ class AddRecipePage extends HTMLElement {
       );
 
       // Select all input from file image
-      //let image = photo.querySelector('input[type="file"]');
-      //console.log(image);
-      //console.log(photo);
-      // console.log(imgFile.files[0]);
-      // let imageData = new FormData();
-      // imageData.append('file', imgFile.files[0]);
-      // console.log(imageData);
-
-      // let fileReader = new FileReader();
-      // fileReader.onload = function () {
-      //   if (fileReader.result.length > 0) {
-      //     image = fileReader.result;
-      //   }
-      // };
+      //console.log(base64Image);
 
       // For loop for upload all ingredient information
       let extendedIngredients = [];
@@ -392,36 +379,32 @@ class AddRecipePage extends HTMLElement {
         60 * parseInt(cookingTimeHour.value) + parseInt(cookingTimeMin.value);
 
       // Create recipe JSON to send to the backend
-      setTimeout(function () {
-        let recipe = {
-          // image: imageData,
-          readyInMinutes: readyInMinutes,
-          servings: servings.value,
-          title: title.value,
-          summary: summary.value,
-          extendedIngredients: extendedIngredients,
-          analyzedInstructions: instructions,
-          author: localStorage.getItem('username'), // TODO: Need to update with curr user
-        };
+      let recipe = {
+        image: base64Image,
+        readyInMinutes: readyInMinutes,
+        servings: servings.value,
+        title: title.value,
+        summary: summary.value,
+        extendedIngredients: extendedIngredients,
+        analyzedInstructions: instructions,
+        author: localStorage.getItem('username'), // TODO: Need to update with curr user
+      };
 
-        // Create the POST message to send to the backend
-        let data = {
-          type: 'addRecipe',
-          username: localStorage.getItem('username'), // TODO: Need to update with curr user
-          token: localStorage.getItem('token'), // TODO: Need to update with curr password
-          recipe: recipe,
-          title: title.value,
-        };
+      // Create the POST message to send to the backend
+      let data = {
+        type: 'addRecipe',
+        username: localStorage.getItem('username'), // TODO: Need to update with curr user
+        token: localStorage.getItem('token'), // TODO: Need to update with curr password
+        recipe: recipe,
+        title: title.value,
+      };
 
-        console.log(recipe);
+      //POST request to send recipe data
 
-        //POST request to send recipe data
-
-        function afterAdd() {
-          router.navigate('profile');
-        }
-        POST(data, afterAdd);
-      });
+      function afterAdd() {
+        router.navigate('profile');
+      }
+      POST(data, afterAdd);
     }
   }
 }
