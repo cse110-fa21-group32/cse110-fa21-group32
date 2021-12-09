@@ -1,11 +1,8 @@
 // Grocery.js
 
+// IMPORTS
 import { router } from '../scripts/main.js';
 import { GET } from '../scripts/request.js';
-
-// IMPORTS
-// import { router } from '../scripts/main.js';
-// import { GET, POST } from '../scripts/request.js';
 
 /**
  * Class: GroceryPage
@@ -61,8 +58,11 @@ class GroceryPage extends HTMLElement {
     }, 200);
   }
 
+  /**
+   * Display checked Ingredients information from the localStorage
+   */
   set update(data) {
-    //Display checked Ingredients information from the localStorage "grocery"
+    // Reset the contents of the grocery page
     this.id = this.shadowRoot.querySelector('article').innerHTML = `
           <h2>Grocery List</h2>
           <div id="grocery-list">
@@ -90,10 +90,10 @@ class GroceryPage extends HTMLElement {
     const myForm = this.shadowRoot.getElementById('#my-list');
 
     // Get information from the Local Storage for the user's custom list
-    let mytempList = JSON.parse(localStorage.getItem('mylist'));
-
-    // If there is nothing in the user's custom list
-    if (mytempList == null) {
+    let mytempList;
+    if (localStorage.getItem('mylist') !== null) {
+      mytempList = JSON.parse(localStorage.getItem('mylist'));
+    } else {
       mytempList = [];
       let ingredient = [];
       let checked = [];
@@ -112,7 +112,6 @@ class GroceryPage extends HTMLElement {
     if (myIngreds == null) {
       myIngreds = [];
     }
-
     let myChecks = mytempList['checked'];
     if (myChecks == null) {
       myChecks = [];
@@ -121,9 +120,10 @@ class GroceryPage extends HTMLElement {
     displayIngredients(myIngreds, myChecks, groceryList, myForm, 'mylist');
 
     // Load list from localStorage "grocery"
-    let currList = JSON.parse(localStorage.getItem('grocery'));
-
-    if (currList == null) {
+    let currList;
+    if (localStorage.getItem('grocery') !== null) {
+      currList = JSON.parse(localStorage.getItem('grocery'));
+    } else {
       currList = [];
     }
 
@@ -136,7 +136,24 @@ class GroceryPage extends HTMLElement {
       let p = document.createElement('p');
       p.innerHTML = currList[i]['name'];
       p.addEventListener('click', () => {
-        router.navigate(`recipe_${currList[i]['id']}`);
+        // Add the recipe page if it doesn't exist
+        if (router[`recipe_${currList[i]['id']}`] == null) {
+          router.addPage(`recipe_${currList[i]['id']}`, function () {
+            //Display recipe information from saved
+            const recipePage = document.createElement('recipe-page');
+            document
+              .getElementById('#section--grocery')
+              .classList.remove('shown');
+            recipePage.classList.add('shown');
+            document.getElementById('#section--recipe').innerHTML = '';
+
+            recipePage.data = currList[i].recipe;
+            document.getElementById('#section--recipe').appendChild(recipePage);
+            document.getElementById('#section--recipe').classList.add('shown');
+          });
+        }
+
+        router.navigate(`recipe_${currList[i]['id']}`); // link to recipe page
       });
       form.append(p);
 
@@ -166,7 +183,7 @@ class GroceryPage extends HTMLElement {
           'Do you want to delete all of your marked ingredients from your list?'
         )
       ) {
-        // Updates last-edited timestamp on grocery
+        // If confirmed, updates last-edited timestamp on grocery
         localStorage.setItem('groceryStamp', Date.now());
         deleteIngredient(groceryList, currList);
         saveIngredient(myForm); //update my saved ingredients saved in local storage
@@ -178,15 +195,16 @@ class GroceryPage extends HTMLElement {
 customElements.define('grocery-page', GroceryPage);
 
 /**
- *
- * @param {*} ingreds
- * @param {*} checks
- * @param {*} groceryList
- * @param {*} form
+ * Generates the checklist and text for the grocery page for one recipe
+ * section or the My List section
+ * @param {Object} ingreds list of ingredients for the section
+ * @param {Object} checks list of checks for the section
+ * @param {HTMLElement} groceryList grocery list div
+ * @param {HTMLElement} form append ingredients to this form
+ * @param {String} localName name of item in local storage to update ('mylist' or 'grocery)
  */
 function displayIngredients(ingreds, checks, groceryList, form, localName) {
   // Displays each ingredient in user's custom list
-
   for (let e = 0; e < ingreds.length; e++) {
     let div = document.createElement('div');
     let input = document.createElement('input');
@@ -208,8 +226,10 @@ function displayIngredients(ingreds, checks, groceryList, form, localName) {
       localStorage.setItem('groceryStamp', Date.now());
       let recipeIdx = -1;
 
+      // If updating grocery list
       if (localName === 'grocery') {
         for (let j = 0; j < currList.length; j++) {
+          // If the name matches the input element's label then save index
           if (
             currList[j]['name'] ===
             input.parentElement.parentElement.querySelector('p').innerText
@@ -218,20 +238,29 @@ function displayIngredients(ingreds, checks, groceryList, form, localName) {
             break;
           }
         }
+        // Should not happen but just as safety check
         if (recipeIdx < 0) {
           console.log('Ingredient checkbox not matching error');
           return;
-        } else {
+        }
+        // If input label is properly found
+        else {
+          // Look for the ingredient that was checked and update the corresponding
+          // checked list element
           for (let i = 0; i < currList[recipeIdx]['ingredients'].length; i++) {
             if (currList[recipeIdx]['ingredients'][i] === label.innerHTML) {
               currList[recipeIdx]['checked'][i] =
                 !currList[recipeIdx]['checked'][i];
               localStorage.setItem(localName, JSON.stringify(currList));
-              break;
+              break; // break since there is only one check for one listener
             }
           }
         }
-      } else if (localName === 'mylist') {
+      }
+      // If updating My List
+      else if (localName === 'mylist') {
+        // Look through ingredients and update the corresponding checked
+        // list element
         for (let i = 0; i < currList['ingredients'].length; i++) {
           if (currList['ingredients'][i] === label.innerHTML) {
             currList['checked'][i] = !currList['checked'][i];
@@ -246,31 +275,37 @@ function displayIngredients(ingreds, checks, groceryList, form, localName) {
 }
 
 /**
- *
- * @param {*} myIngredient
- * @param {*} myForm
+ * Add a new ingredient to My List
+ * @param {HTMLElement} myIngredient text input form for adding ingredient
+ * @param {HTMLElement} myForm append ingredients to the My List form
  */
 function addNewIngredient(myIngredient, myForm) {
+  // Create the checkbox element and label
   let element = myIngredient.querySelector('input[type="text"]');
   let div = document.createElement('div');
   let currElement = document.createElement('input');
   currElement.setAttribute('type', 'checkbox');
-  //Maybe have the checkbox invisible by default, and if user click delete button, checkbox will appear??
   div.append(currElement);
   let content = document.createElement('label');
   content.innerHTML = element.value;
+
+  // Add the elements to to the existing My List section
   div.append(content);
   myForm.append(div);
 
   element.value = ''; // Reset the value in the input box
 
+  // Add an event listener with the new ingredient
   currElement.addEventListener('click', () => {
     // input.checked will show the status *after* the click
     let currList = JSON.parse(localStorage.getItem('mylist'));
 
+    // Look for the index of the corresponding ingredient
     for (let i = 0; i < currList['ingredients'].length; i++) {
       if (currList['ingredients'][i] === content.innerHTML) {
+        // Update the checked status on the page
         currList['checked'][i] = !currList['checked'][i];
+        // Update the checked status in local storage
         localStorage.setItem('mylist', JSON.stringify(currList));
         break;
       }
@@ -280,12 +315,14 @@ function addNewIngredient(myIngredient, myForm) {
 
 /**
  * Once user add new ingredients, information will be added to local storage
- * @param {*} myForm
+ * for My List (the custom ingredient list)
+ * @param {HTMLElement} myForm append ingredients to the My List form
  */
 function saveIngredient(myForm) {
   let savedIng = [];
   let savedCheck = [];
   let elements = myForm.querySelectorAll('input[type="checkbox"]');
+  // Creates the local storage data object by going through HTML elements
   for (let i = 0; i < elements.length; i++) {
     let complete = elements[i].parentElement.querySelector('label');
     savedIng.push(complete.innerText);
@@ -298,13 +335,14 @@ function saveIngredient(myForm) {
     checked: savedCheck,
   };
 
+  // Update My List in local storage
   localStorage.setItem('mylist', JSON.stringify(Mylist));
 }
 
 /**
- *
- * @param {*} groceryList
- * @param {*} currList
+ * Deletes the selected ingredients from the recipe list section
+ * @param {HTMLElement} groceryList grocery list div
+ * @param {Object} currList the current local storage grocery list
  */
 function deleteIngredient(groceryList, currList) {
   let elements = groceryList.querySelectorAll('input[type="checkbox"]');

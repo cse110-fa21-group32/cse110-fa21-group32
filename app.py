@@ -18,7 +18,6 @@ def home_page():
     print(request)
     if request.method == 'POST':
         msg = request.get_json()
-        
 
         # USER
         # Register (create) the user

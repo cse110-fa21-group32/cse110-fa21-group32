@@ -2,7 +2,7 @@
 
 // IMPORTS
 import { router } from '../scripts/main.js';
-import { GET /*, POST */} from '../scripts/request.js';
+import { GET /*, POST */ } from '../scripts/request.js';
 
 /**
  * Class: HomePage
@@ -207,6 +207,7 @@ function getEmail(username, token, userEmail) {
    */
   function getFn(data) {
     userEmail.innerHTML = `User email: ${data.userInfo[0]}`;
+    localStorage.setItem('userEmail', data.userInfo[0]);
     //setFormMessage(loginForm, 'error', 'Invalid username or password!');
   }
 
@@ -232,7 +233,7 @@ function searchRandomRecipes(resultsObject) {
 }
 
 /**
- * Adds data to the recipe cards 
+ * Adds data to the recipe cards
  * @param {Objects} results The random recipes retrieved from spoonacular
  * @param {Object} section The array of recipe cards to add data to
  */
@@ -265,7 +266,7 @@ function createRecipeCards(results, section) {
 /**
  * Attaches an expanded recipe view to the card so that when you click on it
  * you can see the full recipe
- * @param {Object} data The data to give to the recipe card so that when it 
+ * @param {Object} data The data to give to the recipe card so that when it
  * opens up the expanded view has data to populate it
  */
 function addPage(data) {

@@ -409,9 +409,20 @@ class AddRecipePage extends HTMLElement {
       //POST request to send recipe data
 
       function afterAdd() {
+        router.addPage('profile', function () {
+          document.getElementById('#section--home').classList.remove('shown');
+          document
+            .getElementById('#section--search-bar')
+            .classList.remove('shown');
+          document
+            .getElementById('#section--add-recipe')
+            .classList.remove('shown');
+
+          document.getElementById('#section--profile').classList.add('shown');
+        });
         router.navigate('profile');
       }
-      POST(data, afterAdd);
+      POST(data, afterAdd());
     }
   }
 }

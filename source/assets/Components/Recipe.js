@@ -1,6 +1,6 @@
 // Recipe.js
 import { router } from '../scripts/main.js';
-import { GET /*, POST*/ } from '../scripts/request.js';
+// import { GET /*, POST*/ } from '../scripts/request.js';
 
 /**
  * Class: RecipePage
@@ -177,10 +177,8 @@ class RecipePage extends HTMLElement {
     `;
 
     var recipeID = data.recipe.id;
-    const user = localStorage.getItem('username');
-    const token = localStorage.getItem('token');
     const updateBtn = this.shadowRoot.getElementById('editRecipe');
-    getRecipes(user, token, recipeID, updateBtn);
+    getRecipes(recipeID, updateBtn);
 
     //Edit button nav to UpdateRecipe.js
     //TODO: Have ONLY the USER recipe been send to update-recipe
@@ -359,6 +357,7 @@ class RecipePage extends HTMLElement {
         id: recipeID,
         ingredients: ingredientsSelect, // List of checked ingredients in the recipe.
         checked: new Array(ingredientsSelect.length).fill(false), // All unchecked in list
+        recipe: data,
       };
 
       // Updates the last edited timestamp on grocery
@@ -472,31 +471,18 @@ function getSummary(data) {
   return data.recipe.summary;
 }
 
-// Call function for Edit to appear
 /**
- * @param {*} username
- * @param {*} token
+ * Call function for Edit to appear
  * @param {*} recipeID
  * @param {*} button
  */
-function getRecipes(username, token, recipeID, button) {
-  const searchReq = `type=getCustomizedRecipeIDs&user=${encodeURIComponent(
-    username
-  )}&token=${encodeURIComponent(token)}`;
-
-  /**
-   * @param {*} data
-   */
-  function atFetch(data) {
-    for (let i = 0; i < data.ID.length; i++) {
-      if (recipeID == data.ID[i]) {
-        button.parentElement.style.display = 'block';
-      } else {
-        button.parentElement.style.display = 'none';
-      }
-    }
+function getRecipes(recipeID, button) {
+  let userRecipes = localStorage.getItem('userRecipes');
+  if (userRecipes !== null && userRecipes.indexOf(recipeID) >= 0) {
+    button.parentElement.style.display = 'block';
+  } else {
+    button.parentElement.style.display = 'none';
   }
-  GET(searchReq, atFetch);
 }
 
 // TODO: remove if remains unused

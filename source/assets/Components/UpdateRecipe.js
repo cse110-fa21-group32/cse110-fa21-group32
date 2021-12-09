@@ -468,7 +468,7 @@ class UpdateRecipePage extends HTMLElement {
       }
 
       //Sends data to database
-      POST(newData, afterFetch);
+      POST(newData, afterFetch());
     }
   }
 }

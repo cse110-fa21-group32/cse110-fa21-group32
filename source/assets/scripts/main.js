@@ -6,14 +6,11 @@ const pageNames = [
   'home',
   'grocery',
   'profile',
-  'update-user',
   'recipe',
   'search-results',
   'cooking-mode',
-  'fav-recipes',
   'add-recipe',
   'update-recipe',
-  'write-review',
 ];
 //,'prevCooked','user-login','calendar',
 const router = new Router();
@@ -131,15 +128,11 @@ function bindNavIcons() {
  */
 function bindSidePanel() {
   // Retrieve buttons corresponding to icons
-  const favoriteRecipes = document.getElementById('LinkToFav');
   //const userLogin = document.getElementById('LinkLogin');
   const addRecipe = document.getElementById('LinkToAdd');
   const logoutElem = document.getElementById('LinkToLogout');
 
   // Add click event listeners and proper navigation
-  favoriteRecipes.addEventListener('click', () => {
-    router.navigate('fav-recipes');
-  });
   // userLogin.addEventListener('click', () => {
   //   router.navigate('user-login');
   // });
