@@ -1,30 +1,30 @@
 # {Decision on whether to include nutrition facts in recipe}
 
-* Status: {Pending}
+* Status: {Accept}
 * Deciders: {all team members} <!-- optional -->
 * Date: {2021-11-10} <!-- optional -->
 
 ## Context and Problem Statement
 
-We were discussing on the backend tool between Node.js and Python.
+We were discussing what to use on the backend tool, decision between Node.js or Python.
 
 ## Decision Drivers <!-- optional -->
 
-* 
-* Esay to implement, that people can quickly set up
+* Strong and stable backend
+* Esay to implement, people can quickly set up with us
 
 ## Considered Options
 
-* JavaScript
+* JavaScript, Node.js
 * Python
 
 ## Decision Outcome
 
-Chosen option: Need more research
+Chosen option: Python
 
 ### Negative Consequences <!-- optional -->
 
-* 
+* Some team manbers are not too familiar with Python languages
 
 ## Pros and Cons of the Options <!-- optional -->
 
