@@ -139,7 +139,8 @@ section:not(section.shown) {
 }
 
 .footer {
-  position: absolute;
+  position: fixed;
+  bottom: 0;
   background: #ca676a;
   width: 100%;
   overflow: hidden;
