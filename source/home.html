@@ -1,18 +1,43 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<html>
-
 <head>
+<<<<<<< HEAD
     <!-- Router -->
     <script src="source/assets/scripts/Router.js" type="module"></script>
+=======
+  <!--Components-->
+  <title>CookEZ</title>
+
+  <script src="assets/Components/Home.js" type="module"></script>
+  <script src="assets/Components/Recipe.js" type="module"></script>
+  <script src="assets/Components/CookingMode.js" type="module"></script>
+  <!-- <script src="assets/components/Calendar.js" type="module"></script> -->
+  <script src="assets/Components/Grocery.js" type="module"></script>
+  <script src="assets/Components/Profile.js" type="module"></script>
+  <!-- <script src="assets/Components/UpdateUser.js" type="module"></script> -->
+  <script src="assets/Components/SearchBar.js" type="module"></script>
+  <script src="assets/Components/SearchResults.js" type="module"></script>
+
+  <script src="assets/Components/FavoriteRecipes.js" type="module"></script>
+  <script src="assets/Components/AddRecipe.js" type="module"></script>
+  <script src="assets/Components/UpdateRecipe.js" type="module"></script>
+  <!-- <script src="assets/components/UserLogin.js" type="module"></script> -->
+
+  <!--Router-->
+  <script src="assets/scripts/Router.js" type="module"></script>
+
+  <!-- Main Stylesheet & Scripts -->
+  <link rel="stylesheet" href="assets/styles/main.css" />
+  <script src="assets/scripts/main.js" type="module"></script>
+
+  <!--Icon-->
+  <link rel="icon" href="../admin/branding/logo.ico" type="image/gif" />
+>>>>>>> b57536f911388a6db52fb20cc060d47bdb218f70
 </head>
 
-<header>
-    <p>Header Content...</p>
-</header>
-
 <body>
+<<<<<<< HEAD
     <!--Home-->
     <section id="homeID" class="home">
         <h1>Home Page</h1>
@@ -134,42 +159,45 @@
             <p>Timer</p>
             <button type="button">Start</button>
         </div>
+=======
+  <header>
+    <button type="button" class="openbtn" onclick="openNav()">&#9776;</button>
+    <!--Sidepanel-->
+    <!--Add CSS and Javascript-->
+    <!--Side Panel-->
+    <!--"Reference: https://www.w3schools.com/howto/howto_js_collapse_sidepanel.asp [Collapse Sidepanel]"-->
+    <!--section id="#section--side-panel" class="sidepanel" style="background-color: transparent"-->
+    <section id="#section--side-panel">
+      <div id="sidepanelID" class="sidepanel" style="width: 0">
+        <button type="button" class="closebtn" style="color: white" ; onclick="closeNav()">
+          &times;
+        </button>
+
+        <a id="LinkToFav" class="fav" href="javascript:void(0)" onclick="closeNav()">Favorite Recipes</a>
+        <!-- <a id="LinkLogin" href="userLogin.html">User Login</a> -->
+        <a id="LinkToAdd" class="add" href="javascript:void(0)" onclick="closeNav()">Add a Recipe</a>
+        <a id="LinkToLogout" class="write" href="javascript:void(0)" onclick="closeNav()">Log Out</a>
+      </div>
+>>>>>>> b57536f911388a6db52fb20cc060d47bdb218f70
     </section>
 
-    <!--Profile Page-->
-    <section id="profile-pageID" class="profile-page">
-        <h2>User Profile</h2>
+    <!--User Login-->
+    <!-- <section id="#section--user-login"></section> -->
 
-        <!--Profile Page Navbar-->
-        <div class=profile-page-navbar>
-            <ul>
-                <li><a href="profile-page-recipeID">Recipes</a></li>
-                <li><a href="profile-page-reviewsID">Reviews</a></li>
-            </ul>
-        </div>
+    <!--Search Bar-->
+    <section id="#section--search-bar"></section>
+  </header>
 
-        <!--Profile Page Recipe-->
-        <div id="profile-page-recipeID" class="profile-page-recipe">
-            <p>Recipes</p>
-        </div>
+  <!--Home-->
+  <section id="#section--home"></section>
 
-        <!--Profile Page Reviews-->
-        <div id="profile-page-reviewsID" class="profile-page-reviews">
-            <p>Reviews</p>
-        </div>
+  <!--Search Results-->
+  <section id="#section--search-results"></section>
 
-    </section>
+  <!--Calendar-->
+  <!-- <section id="#section--calendar"></section> -->
 
-    <!--Favorites-->
-    <section class="favorites">
-        <h2>Favorites</h2>
-        <p>Content...</p>
-        <div class="favorite-recipe-cards-wrapper">
-            <!--ADD RECIPES HERE-->
-        </div>
-
-    </section>
-
+<<<<<<< HEAD
     <!--Add-Recipes-->
     <section class="add-recipe">
         <h2>Add Recipe</h2>
@@ -232,12 +260,27 @@
         <button class="openbtn" onclick="openNav()">&#9776; Toggle Sidepanel</button>
 
     </section>
+=======
+  <!--Grocery-list-->
+  <section id="#section--grocery"></section>
 
-    <!--Functions-->
-    <script>
+  <!--Recipes-->
+  <section id="#section--recipe"></section>
 
-    </script>
+  <!--Cooking Mode-->
+  <section id="#section--cooking-mode"></section>
 
+  <!--Profile Page-->
+  <section id="#section--profile"></section>
+>>>>>>> b57536f911388a6db52fb20cc060d47bdb218f70
+
+  <!--Update User Info Page-->
+  <section id="#section--update-user"></section>
+
+  <!--Favorites-->
+  <section id="#section--fav-recipes"></section>
+
+<<<<<<< HEAD
     <!--Footer bar-->
     <!--"Reference: https://www.w3schools.com/howto/howto_js_collapse_sidepanel.asp [Collapse Sidepanel]"-->
     <footer>
@@ -249,17 +292,56 @@
             <li><a href="#profile-pageID">profile</a></li>
         </ul>
     </footer>
+=======
+  <!--Add-Recipes-->
+  <section id="#section--add-recipe"></section>
+>>>>>>> b57536f911388a6db52fb20cc060d47bdb218f70
 
-</body>
+  <!--Update-Recipes-->
+  <section id="#section--update-recipe"></section>
 
-<script>
+  <!--Functions-->
+  <script>
     function openNav() {
-        document.getElementById("sidepanelID").style.width = "250px";
+      document.getElementById("sidepanelID").style.width = "250px";
+      document.getElementById("sidepanelID").style.height = "100%";
     }
 
     function closeNav() {
-        document.getElementById("sidepanelID").style.width = "0";
+      document.getElementById("sidepanelID").style.width = "0";
     }
-</script>
+  </script>
+
+  <!--Footer bar-->
+
+  <footer>
+    <!--<h2>Footer</h2>-->
+    <!-- <ul>
+      <li><button type="button" class="home-icon">home</button></li>
+      <li><button type="button"  class="calendar-icon">calendar</button></li>
+      <li><button type="button" class="grocery-icon">list</button></li>
+      <li><button type="button"  class="profile-icon">profile</button></li>
+    </ul> -->
+    <div class="footer">
+      <button id="LinkToHome" type="button" fill="var(--svgcolor)"
+        style="background-color: transparent; border-color: transparent">
+        <img class="footerImage" src="assets/icons/home.svg" alt="home-icon" height="35" />
+      </button>
+      <!-- <button id="LinkToCalendar" type="button" fill="var(--svgcolor)"
+        style="background-color: transparent; border-color: transparent"
+        onclick="window.location.href='../source/full_calendar/calendar.html'">
+        <img class="footerImage" src="assets/icons/calendar.svg" alt="calendar-icon" height="35" />
+      </button> -->
+      <button id="LinkToList" type="button" fill="var(--svgcolor)"
+        style="background-color: transparent; border-color: transparent">
+        <img class="footerImage" src="assets/icons/shopping-cart.svg" alt="grocery-icon" height="35" />
+      </button>
+      <button id="LinkToProfile" type="button" fill="var(--svgcolor)"
+        style="background-color: transparent; border-color: transparent">
+        <img class="footerImage" src="assets/icons/user.svg" alt="profile-icon" height="35" />
+      </button>
+    </div>
+  </footer>
+</body>
 
 </html>

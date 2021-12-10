@@ -1,0 +1,63 @@
+{
+  "devDependencies": {
+    "@babel/core": "^7.16.0",
+    "@babel/preset-env": "^7.16.0",
+    "babel-jest": "^27.3.1",
+    "eslint": "^8.2.0",
+    "grunt": "^1.4.1",
+    "grunt-contrib-cssmin": "^4.0.0",
+    "grunt-contrib-htmlmin": "^3.1.0",
+    "grunt-git": "^1.1.1",
+    "grunt-terser": "^2.0.0",
+    "html-validate": "^6.1.2",
+    "jest": "^27.3.1",
+    "jest-puppeteer": "^6.0.0",
+    "jsdoc": "^3.6.7",
+    "puppeteer": "^11.0.0",
+    "stylelint": "^14.1.0",
+    "stylelint-config-standard": "^24.0.0",
+    "terser": "^5.10.0"
+  },
+  "scripts": {
+    "test": "jest",
+    "doc": "jsdoc -c jsdoc.conf.json",
+    "coverage": "jest --collect-coverage"
+  },
+  "jest": {
+    "preset": "jest-puppeteer",
+    "verbose": true,
+    "roots": [
+      "./test"
+    ]
+  },
+  "prettier": {
+    "tabWidth": 2,
+    "overrides": [
+      {
+        "files": "*.js",
+        "options": {
+          "singleQuote": true
+        }
+      }
+    ]
+  },
+  "stylelint": {
+    "extends": "stylelint-config-standard",
+    "rules": {
+      "indentation": [
+        2,
+        {
+          "except": [
+            "value"
+          ],
+          "disableFix": true
+        }
+      ],
+      "comment-empty-line-before": null,
+      "color-hex-length": null,
+      "selector-class-pattern": null,
+      "selector-id-pattern": null
+    }
+  },
+  "dependencies": {}
+}

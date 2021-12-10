@@ -1,0 +1,123 @@
+# This is a basic workflow to help you get started with Actions
+
+name: Main Branch Linting & Formatting
+
+# Controls when the workflow will run
+on:
+  # Triggers the workflow on push or pull request events but only for the main branch
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  build:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v2
+
+      # Template setup Node.js environment
+      - name: Setup Node.js environment
+        uses: actions/setup-node@v2.4.1
+        with:
+          # Version Spec of the version to use.  Examples: 12.x, 10.15.1, >=10.15.0
+          node-version: ">=12.x"
+
+      # Resource: https://dev.to/github/caching-dependencies-to-speed-up-workflows-in-github-actions-3efl
+      - name: Cache node modules
+        uses: actions/cache@v2
+        env:
+          cache-name: cache-node-modules
+        with:
+          # npm cache files are stored in `~/.npm` on Linux/macOS
+          path: ~/.npm
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-build-${{ env.cache-name }}-
+            ${{ runner.os }}-build-
+            ${{ runner.os }}-
+
+      - name: Install npm
+        run: npm install
+
+  prettier:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          # Make sure the actual branch is checked out when running on pull requests
+          ref: ${{ github.head_ref }}
+
+      - name: Prettify code
+        uses: creyD/prettier_action@v4.0
+        with:
+          # This part is also where you can pass other options, for example:
+          prettier_options: --write source/assets/**/*.{js,css} --write source/*.html
+          only_changed: True
+
+  js-eslint:
+    needs: [build, prettier]
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2.4.1
+
+      # Exclude the test.js files due to errors about jest functions
+      - name: Run ESLint
+        run: npx eslint source/assets/scripts/*.js
+
+      - name: Run ESLint
+        run: npx eslint source/assets/Components/*.js
+
+  js-test:
+    needs: prettier
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      # Use yarn because installing jest thru npm is costly
+      - name: Install modules
+        run: yarn
+
+      - name: Run tests
+        run: yarn test
+
+  html-validate:
+    needs: [build, prettier]
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2.4.1
+
+      # Only validates source .html files, can generalize if desired
+      - name: Run HTML linter
+        run: npx html-validate source/*.html
+
+  css-lint:
+    needs: [build, prettier]
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2.4.1
+
+      - name: Install CSS linter
+        run: npm install --save-dev stylelint stylelint-config-standard
+
+      # Only validates source .css files, can generalize if desired
+      - name: Run CSS linter
+        run: npx stylelint source/assets/styles/*.css
