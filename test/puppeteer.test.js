@@ -1,7 +1,7 @@
 describe('Basic user flow for Website', () => {
   beforeAll(async () => {
     await page.goto(
-      'https://hopeful-lewin-95a6c7.netlify.app/'
+      'http://127.0.0.1:5500/source/home.html'
     );
   });
 

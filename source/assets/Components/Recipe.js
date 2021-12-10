@@ -28,6 +28,10 @@ class RecipePage extends HTMLElement {
       font-weight: lighter !important;
     }
 
+    #recipe-imageID{
+      background-color: #324a54;
+    }
+
     .recipe-navbar button {
   
       border: transparent;
@@ -51,7 +55,7 @@ class RecipePage extends HTMLElement {
     img{
       width: 100%;
       max-height: 400px;
-      object-fit: cover;
+      object-fit: contain;
     }
     .genInfo{
       display: flex;
@@ -113,6 +117,19 @@ class RecipePage extends HTMLElement {
       color: white;
     }
 
+    // #ToIng:hover{
+    //   background-color: #609C8B;
+    // }
+    // #ToIng:not:visited:hover{
+    //   transform: scale(1.25);
+    // }
+    // #ToDir:hover{
+    //   transform: scale(1.25);
+    // }
+    // #ToSum:hover{
+    //   transform: scale(1.25);
+    // }
+
     .regbutton {
       background-color: white;
       border-radius: 18px !important;
@@ -135,6 +152,11 @@ class RecipePage extends HTMLElement {
       height: auto !important;
       weidth auto !important;
       border-radius: 162px !important;
+    }
+
+    .regbutton:hover {
+      background-color: #ca676a;
+      color: white;
     }
 
     .editButton, recipe-summmaryButton{

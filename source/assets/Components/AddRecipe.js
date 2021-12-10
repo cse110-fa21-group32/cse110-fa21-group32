@@ -164,43 +164,9 @@ class AddRecipePage extends HTMLElement {
         <br>
       </div>
 
-      <div class="part3">
-      <!--Basic Information (Tags/Summary)-->
-      <label for="sum"><p><strong>Add Tags from the list: </strong></p></label>
-      <ul>
-        <li>
-        <label for="tags">Tag 1 (Country): </label><br>
-        <select id="tag1-list">
-          <option value="Italian">Italian</option>
-          <option value="French">French</option>
-          <option value="Mexican">Mexican</option>
-          <option value="American">American</option>
-          <option value="Chinese">Chinese</option>
-          <option value="Japanese">Japanese</option>
-          <option value="Korean">Korean</option>
-          <option value="Vietnamese">Korean</option>
-          <option value="Others">Others</option>
-        </select>
-        </li>
-        
-        <li>
-        <label for="tags">Tag 2(Type of Food): </label><br>
-        <select id="tag2-list">
-          <option value="Pizza">Pizza</option>
-          <option value="Seafood">Seafood</option>
-          <option value="Burgers">Burgers</option>
-          <option value="Vegetarian">Vegetarian</option>
-          <option value="Sandwiches">Sandwiches</option>
-          <option value="Steakhouses">Steakhouses</option>
-          <option value="Desserts">Desserts</option>
-          <option value="Drinks">Drinks</option>
-          <option value="Breakfast">Breakfast</option>
-          <option value="Lunch">Lunch</option>
-          <option value="Dinner">Dinner</option>
-          <option value="Others">Others</option>
-        </select>
-        </li>
-      </ul>
+        <label id="servings" for="servings"> No. of Servings: </label>
+        <input type="text" name="numServings" id="#input--no-of-serv" required>
+        <br>
 
       <label for="sum"><p><strong>Add Summary: </strong></p></label>
       <textarea id="addTitle" name="recipeTitle" placeholder="Title:" required></textarea><br>
@@ -246,17 +212,12 @@ class AddRecipePage extends HTMLElement {
          </button>
       </div>
       <br>
-
-      <input class="part4-button" type="submit" value="Publish">
-      <button class="part4-button" id="leaveButton">
-      <a href="home.html"  style="color:#CA676A"> Leave </a>
-      </button>
-      <br>
-
-      <br>
+      
       </form>
       <!--TO DO delete Directions button-->
-
+      <br>
+      <button type ="button" id="publish-button"> Publish </button>
+      <button type="button" id="leave-button">LEAVE</button>
       `;
 
     // Append elements to the shadow root
@@ -416,8 +377,8 @@ class AddRecipePage extends HTMLElement {
     // newRecipe.addEventListener("submit", handleFormSubmit)
 
     // Event handler for a form submit event
-    const newRecipe = this.shadowRoot.getElementById('new-recipe');
-    newRecipe.addEventListener('submit', (e) => {
+    const newRecipe = this.shadowRoot.getElementById('publish-button');
+    newRecipe.addEventListener('click', (e) => {
       e.preventDefault();
       postCreateRecipeData();
     });

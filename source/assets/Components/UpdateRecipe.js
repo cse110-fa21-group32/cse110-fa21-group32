@@ -94,11 +94,11 @@ class UpdateRecipePage extends HTMLElement {
           <button id="addDirectionButton"> Add More </button>
         </div>
         <br>
-        <input type="submit" id="publishBtn" value="Publish">
         </form>
         <!--TO DO delete Directions button-->
-        
-        <button><a href="javascript:void(0)" id="deleteRecipe"> Delete </a></button>
+        <br>
+        <button type="button" id="publishBtn"> Publish </button>
+        <button type="delete" id="deleteRecipe"> Delete </button>
         <button type="button" id="leave-button"> LEAVE </button>
         `;
 

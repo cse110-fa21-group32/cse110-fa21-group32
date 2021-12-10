@@ -4,3 +4,4 @@ package-lock.json
 .DS_Store
 *.db
 source/full_calendar/
+.venv/

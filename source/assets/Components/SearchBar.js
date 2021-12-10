@@ -130,3 +130,4 @@ function searchRecipes(searchPhrase, searchResPage) {
 customElements.define('search-bar', SearchBar);
 
 // EXPORTS
+// EXPORTS
