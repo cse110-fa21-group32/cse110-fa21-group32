@@ -97,7 +97,7 @@ section:not(section.shown) {
   background-color: #9dbc9a !important;
 }
 
-#LinkToWrite:hover {
+#LinkToLogout:hover {
   background-color: #b2d8af !important;
 }
 
@@ -116,14 +116,13 @@ section:not(section.shown) {
 
 /* Style the button that is used to open the sidepanel */
 .openbtn {
-  font-size: 20px;
-  cursor: pointer;
-  /* background-color: #111; */
-  color: white;
-  padding: 26.5px 15px;
-  border: none;
   float: left;
+  cursor: pointer;
+  color: white;
   background: #ca676a;
+  font-size: 20px;
+  padding: 26.5px 10px;
+  border: hidden;
 }
 
 /* .openbtn:hover {
@@ -138,9 +137,15 @@ section:not(section.shown) {
   background-size: cover;
 }
 
+.empty {
+  clear: both;
+  height: 100px;
+}
+
 .footer {
-  position: absolute;
   background: #ca676a;
+  position: fixed;
+  bottom: 0;
   width: 100%;
   overflow: hidden;
   display: flex;
@@ -148,8 +153,17 @@ section:not(section.shown) {
   vertical-align: top;
 }
 
-.footer button {
-  color: white;
-  margin-left: 10%;
-  margin-right: 10%;
+.footer > button {
+  margin: 0 2%;
+  padding: 15px 2%;
+  font-size: 1px;
+  border-radius: 10em;
+}
+
+.footerButton:active {
+  transform: scale(0.75);
+}
+
+.footerImage:hover {
+  transform: scale(1.25);
 }

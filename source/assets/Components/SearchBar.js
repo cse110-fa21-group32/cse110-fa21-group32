@@ -23,11 +23,13 @@ class SearchBar extends HTMLElement {
     // Fill in styles and root element
     styles.innerHTML = `
     *{
-      background-color: #CA676A;
+      margin-bottom: 0 !important;
+      background-color: #ca676a;
       background-size: cover;
       color: white;
       overflow: hidden;
-      padding: 10px;
+      padding: 11px;
+      margin-top: 0;
     }
     form{
       display:flex;
@@ -45,6 +47,7 @@ class SearchBar extends HTMLElement {
       box-sizing: border-box;
       color: black;
       border-radius: 306px;
+      font-size: 25px;
     }
     button{
       background-color: white;
@@ -76,7 +79,7 @@ class SearchBar extends HTMLElement {
     // Add search results page to router in order to successfully navigate to it
     router.addPage('search-results', function () {
       document.getElementById('#section--home').classList.remove('shown');
-      document.getElementById('#section--search-bar').classList.remove('shown');
+      document.getElementById('#section--recipe').classList.remove('shown');
 
       document
         .getElementById('#section--search-results')

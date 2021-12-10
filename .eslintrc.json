@@ -9,5 +9,8 @@
     "parserOptions": {
       "ecmaVersion": 13,
       "sourceType": "module"
+    },
+    "rules": {
+      "no-inner-declarations": "warn"
     }
   }

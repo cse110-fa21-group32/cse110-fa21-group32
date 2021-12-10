@@ -125,28 +125,3 @@ jobs:
         with:
           deploy_key: ${{ secrets.ACTIONS_DEPLOY_KEY }}
           publish_dir: ./out
-
-  # minify:
-  #   needs: [build, js-eslint, css-lint, html-validate]
-  #   runs-on: ubuntu-latest
-
-  #   steps:
-  #     - uses: actions/checkout@v2
-  #     - uses: actions/setup-node@v2
-
-  #     - name: Compile with Grunt
-  #       uses: elstudio/actions-js-build/build@v4
-
-  #     # - name: Config GitHub user name
-  #     #   run: git config --global user.name hannahhui5184
-
-  #     # - name: Config GitHub user email
-  #     #   run: git config --global user.email hannah.hui5184@gmail.com
-
-  #     # - name: Run minification
-  #     #   run: grunt
-
-  #     - name: Commit changes
-  #       uses: elstudio/actions-js-build/commit@v4
-  #       with:
-  #         commitMessage: Minified source files for deployment

@@ -22,55 +22,198 @@ class UpdateRecipePage extends HTMLElement {
 
     // Fill in styles and root element
     styles.innerHTML = `
-        h2{
-          background-color: #CA676A;
-          background-size: cover;
-          padding: 23.5px;
-          color: white;
-        }
+      h2{
+        margin-bottom: 0 !important;
+        background-color: #ca676a;
+        background-size: cover;
+        padding: 23.5px;
+        color: white;
+        margin-top: 0;
+        text-align: center;
+        font-weight: lighter !important;
+      }
+
+      #update-recipe{
+        text-align: center;
+        margin: auto;
+      }
+      
+      table {
+        margin: auto;
+        padding: 10px;
+        height: 42pt
+      }
+
+      .part1 {
+        background-color: #CA676A;
+        width: 100%;
+        color: white;
+        text-align: center;
+      }
+      a { text-decoration: none; }
+      
+      #recipeImage{
+        width: 100%;
+        max-height: 400px;
+        object-fit: cover;
+      }
+      .part2 { 
+        text-align: center;
+        border-top: 3px solid white;
+        background-color: #324A54;
+        color: white;
+        padding-left: 5%;
+        padding-right: 5%;
+        padding-top: 50px;
+        padding-bottom: 13px;}
+      .part3 { 
+        text-align: center;
+        margin: auto;
+        padding-left: 5%;
+        padding-right: 5%;
+       }
+
+      .part4-button { 
+        cursor: pointer;
+        background-color: white;
+        border-radius: 16px !important;
+        border: 1.5px solid #ca676a;
+        text-align: center;
+        min-width: 15% !important;
+        height: 2.2em; !important;
+        font-size: 16pt;
+        color:#ca676a;
+        width: auto !important;
+        box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.25);
+        margin: 0.3em;
+        padding: 0.2em !important;
+       }
+      .part4-button:hover {
+        background-color: #ca676a;
+        color: white;
+      }
+
+      .update-recipe-navbar button {
+        border: transparent;
+        cursor: pointer;
+        float: left;
+        color: white;
+        font-size: large;
+        height: 40pt;
+      }
+      .update-recipe-navbar:after {
+        clear: both;
+        display: table;
+      }
+  
+      .update-recipe-navbar button:not(:last-child) {
+        border-right: none; /* Prevent double borders */
+      }
+
+      textarea {
+        width: 80%;
+        height: 42pt;
+        background-color: #EEEEEE;
+        font-size: 16pt;
+      }
+      table {
+        margin: auto;
+        padding: 10px;
+        height: 42pt
+      }
+      .emp {
+        clear: both;
+        height: 50px;
+      }
+
+      .updateIng {
+        width: 90%;
+        padding: 10px 15px;
+        margin: 4px;
+        box-sizing: border-box;
+        font-size: 16pt;
+      }
+      .css-input {
+        width: 20%;
+        padding: 10px 15px;
+        margin: 4px;
+        box-sizing: border-box;
+        font-size: 16pt;
+      }
+      ol {
+        margin: auto;
+        padding: 10px;
+      }
+      .css-x-circle {
+        background-color: white;
+        border: none;
+        cursor: pointer;
+      }
+      .add-more-button {
+        cursor: pointer;
+        width: 20%;
+        height: 22pt;
+        background-color: white;
+        border: 1.5px solid black;
+      }
+      li {
+        display: list-item;
+        list-style-position: inside;
+      }
+      
+      
         `;
     article.innerHTML = `
-          <h2>Update Recipe</h2>
-          <div class="update-recipe-navbar">
-            <!-- li><a onclick="navTo('homeID')" href="javascript:void(0)">home</a></li> -->
-            <a href="#update-recipe-summaryID" id="ToUpdateSum">Summary</a>
-            <a href="#update-recipe-ingredientsID" id="ToUpdateIng">Ingredients</a>
-            <a href="#update-recipe-directionID" id="ToUpdateDir">Directions</a>
-          </div>
-  
-          <form id="update-recipe">
-          <!--Update Recipe Summary-->
-          <div id="update-recipe-summary" style="display: show">
-          <br>
-  
-          <!--Update Image-->
-          <label for="img"><p><strong>Update Image</strong></p></label>
-          <input type="file" id="img" name="img" accept="image/*"/>
-          <p><img id="recipeImage" width="200"/></p>
-          <br>
-          <br>
-  
-          <!--Update Basic Information-->
-          <label>Cooking Time:</label>
-          <input type="text" name="cookingTimeHour" id="#input--cook-time-hour" placeholder="hours..">
-          <input type="text" name="cookintTimeMin" id="#input--cook-time-mins" placeholder="mins..">
-          <br>
-          <br>
-  
-          <label id="servings" for="servings"> No. of Servings: </label>
-          <input type="text" name="numServings" id="#input--no-of-serv">
-          <br>
-  
-        <!--Update Basic Information (Summary)-->
-        <label for="sum"><p><strong>Add Summary: </strong></p></label>
-        <textarea id="updateTitle" name="recipeTitle" placeholder="Title:"></textarea><br>
-        <textarea id="updateSummary" name="recipeSummary" placeholder="Summary"></textarea>
-        <br>
+      <div class="part1"> 
+        <h2>Update Recipe</h2>
+        <div class="update-recipe-navbar" style="width: 100%">
+          <button id="ToUpdateSum" style="width:33.3%; background-color: #324A54;">Summary
+            <a href="#update-recipe-summaryID"></a>
+          </button>
+          <button id="ToUpdateIng" style="width:33.4%; background-color: #CA676A;">Ingredients
+            <a href="#update-recipe-ingredientsID"></a>
+          </button>
+          <button id="ToUpdateDir" style="width:33.3%; background-color: #CA676A;">Directions
+            <a href="#update-recipe-directionID"></a>
+          </button>
         </div>
-      
-        <!--Update Recipe Ingredients-->
-        <div id="update-recipe-ingredients" style="display: none">
-        <label for="ingredients"><p><strong>Add Ingredients</strong></p></label>
+      </div>
+
+
+      <form id="update-recipe">
+      <div id="update-recipe-summary" style="display: show">
+        <div class="part2">
+          <!--Add Image-->
+          <label for="img"><p><strong>Change Image</strong></p></label>
+          <input type="file" id="img" name="img" accept="image/*"/>
+          <p><img id="recipeImage"/></p>
+          <br>
+          <br>
+
+          <!--Update Basic Information-->
+          <label class="css-margin">Cooking Time:</label>
+          <input class="css-input" type="text" name="cookingTimeHour" id="#input--cook-time-hour" placeholder="hours.." required>
+          <input class="css-input" type="text" name="cookintTimeMin" id="#input--cook-time-mins" placeholder="mins.." required>
+          <br>
+          <label class="css-margin" id="servings" for="servings"> No. of Servings: </label>
+          <input class="css-input" type="text" name="numServings" id="#input--no-of-serv" required>
+          <br>
+          <br>
+        </div>
+
+        <div class="part3">
+          <label for="sum"><p><strong>Update Summary: </strong></p></label>
+          <textarea id="updateTitle" name="recipeTitle" placeholder="Title:" required></textarea><br>
+          <textarea id="updateSummary" name="recipeSummary" placeholder="Summary" required></textarea>
+          <br>
+        </div>
+      </div>
+  
+  
+      <!--Update Recipe Ingredients-->
+      <div class="part5" id="update-recipe-ingredients" style="display: none">
+        <!-- empty div for spacing -->
+        <div class="emp"></div>
         <table id="ingredient-table">
           <tr>
             <th>Qty</th>
@@ -79,32 +222,46 @@ class UpdateRecipePage extends HTMLElement {
           </tr>
         </table>
         <!--When click add more should create another new 'tr' with three new inputs-->
-        <button id="addIngredientButton"> Add More </button>
+        <button class="add-more-button" id="addIngredientButton"> 
+          <img src="assets/icons/plus-circle.svg"/> 
+        </button>
         <br>
-        </div>
-        <!--TO DO delete ingredients button-->
-    
-        <!--Update Recipe Directions-->
-        <div id="update-recipe-direction" style="display: none">
-          <p>Direction</p>
-          <ol>
-          </ol>
-          <br>
-          <!--When click add more should create another new textarea for direction-->
-          <button id="addDirectionButton"> Add More </button>
-        </div>
+      </div>
+     
+     
+      <!--Add Recipe Directions-->
+      <div class="part6" id="update-recipe-direction" style="display: none">
+        <!-- empty div for spacing -->
+        <div class="emp"></div>
+        <ol>
+        </ol>
         <br>
-        <input type="submit" id="publishBtn" value="Publish">
-        </form>
-        <!--TO DO delete Directions button-->
-        
-        <button><a href="javascript:void(0)" id="deleteRecipe"> Delete </a></button>
-        <button><a href="home.html"> LEAVE </a></button>
-        `;
+        <!--When click add more should create another new textarea for direction-->
+        <button class="add-more-button" id="addDirectionButton"> 
+        <img src="assets/icons/plus-circle.svg"/>
+         </button>
+      </div>
+      <br>
+
+
+      <input class="part4-button" type="submit" value="Publish"/>
+      <button class="part4-button" type="button" id="deleteRecipe"> Delete </button>
+      <button class="part4-button" type="button" id="leave-button"> LEAVE </button>
+      </form>
+      <!--TO DO delete Directions button-->
+
+      `;
 
     this.recipeId = 0;
     // Append elements to the shadow root
     this.shadowRoot.append(styles, article);
+
+    // Add leave button listener
+    this.shadowRoot
+      .getElementById('leave-button')
+      .addEventListener('click', () => {
+        router.navigate('home');
+      });
 
     //Nav Bar for "Summary", "Ingredients", and "Directons"
     //----------------------------------------------------------------
@@ -173,7 +330,7 @@ class UpdateRecipePage extends HTMLElement {
     // Display/Change Image form the data
     var img = this.shadowRoot.getElementById('recipeImage');
     var imgFile = this.shadowRoot.querySelector('input[type="file"]');
-    var base64Image = '';
+    var base64Image = oldimage;
 
     imgFile.addEventListener('change', function () {
       imageDisplay(this);
@@ -190,19 +347,6 @@ class UpdateRecipePage extends HTMLElement {
         reader.readAsDataURL(input.files[0]);
       }
     }
-
-    // Select input file image
-    // const imageData = new FormData();
-    // const image = document
-    // let image = '';
-    // let fileReader = new FileReader();
-    // fileReader.onload = function () {
-    //   if (fileReader.result.length > 0) {
-    //     image = fileReader.result;
-    //   }
-    // };
-    // console.log(photo.files[0]);
-    // fileReader.readAsDataURL(photo.files[0]);
 
     //Set Cooking Hour and Mins
     let cookTimeHourPrev = Math.floor(
@@ -238,24 +382,27 @@ class UpdateRecipePage extends HTMLElement {
 
       let quantityTextArea = document.createElement('input');
       quantityTextArea.setAttribute('type', 'text');
+      quantityTextArea.setAttribute('class', 'updateIng');
       quantityTextArea.setAttribute('name', 'quantity');
       quantityTextArea.setAttribute('value', ingredientsPrev[i]['amount']);
       quantity.appendChild(quantityTextArea);
 
       let unitTextArea = document.createElement('input');
       unitTextArea.setAttribute('type', 'text');
+      unitTextArea.setAttribute('class', 'updateIng');
       unitTextArea.setAttribute('name', 'unit');
       unitTextArea.setAttribute('value', ingredientsPrev[i]['unit']);
       unit.appendChild(unitTextArea);
 
       let ingredientTextArea = document.createElement('input');
       ingredientTextArea.setAttribute('type', 'text');
+      ingredientTextArea.setAttribute('class', 'updateIng');
       ingredientTextArea.setAttribute('name', 'ingredientName');
       ingredientTextArea.setAttribute('value', ingredientsPrev[i]['name']);
       ingredient.appendChild(ingredientTextArea);
 
       deleteButton.innerHTML =
-        '<button onclick="event.preventDefault();this.parentNode.parentNode.parentNode.deleteRow(this.parentNode.parentNode.rowIndex)">Delete Row</button>';
+        '<button class="css-x-circle" onclick="event.preventDefault();this.parentNode.parentNode.parentNode.deleteRow(this.parentNode.parentNode.rowIndex)">Delete Row</button>';
     }
 
     //Set Directions
@@ -298,11 +445,11 @@ class UpdateRecipePage extends HTMLElement {
           .querySelector('table');
         let row = ingredientsList.insertRow(-1);
         let quantity = row.insertCell(0);
-        quantity.innerHTML = '<input type="text" name="quantity"/>';
+        quantity.innerHTML = '<input class="updateIng" type="text" name="quantity"/>';
         let unit = row.insertCell(1);
-        unit.innerHTML = '<input type="text" name="unit"/>';
+        unit.innerHTML = '<input class="updateIng" type="text" name="unit"/>';
         let ingredient = row.insertCell(2);
-        ingredient.innerHTML = '<input type="text" name="ingredientName"/>';
+        ingredient.innerHTML = '<input class="updateIng" type="text" name="ingredientName"/>';
         let deleteButton = row.insertCell(3);
         deleteButton.innerHTML =
           '<button onclick="event.preventDefault();this.parentNode.parentNode.parentNode.deleteRow(this.parentNode.parentNode.rowIndex)">Delete Row</button>';
@@ -352,6 +499,7 @@ class UpdateRecipePage extends HTMLElement {
         function afterDelete() {
           //Going Back to the Home Pgae
           router.navigate('home');
+          document.getElementById('#section--profile').firstChild.recipes = '';
         }
 
         POST(data, afterDelete);
@@ -359,10 +507,10 @@ class UpdateRecipePage extends HTMLElement {
 
     //console.log('Before publish button');
     this.shadowRoot
-      .getElementById('publishBtn')
-      .addEventListener('click', (e) => {
+      .getElementById('update-recipe')
+      .addEventListener('submit', (e) => {
         e.preventDefault();
-        updateData(title);
+        updateData();
       });
     // Get elements of the form
     //const photo = this.shadowRoot.getElementById('img');
@@ -385,25 +533,7 @@ class UpdateRecipePage extends HTMLElement {
      * This function is called when the publish button is clicked and it sends the new inputted data to the database
      */
     function updateData() {
-      // Select image to base64String
-      // var reader = new FileReader();
-      // // console.log("next");
-      // var base64Image = '';
-      // reader.onload = function () {
-      //   if (reader.result.length > 0) {
-      //     base64Image = reader.result;
-      //     //console.log(base64Image);
-      //   }
-      // }
-      // reader.readAsDataURL(imgFile['files'][0]);
-
-
-      // Select all ingredients
-      //let ingredientList = this.shadowRoot.getElementById()
-      // console.log(imgFile.files[0]);
-      // let imageData = new FormData();
-      // imageData.append('file', imgFile.files[0]);
-      // console.log(imageData);
+      // Select elements from ingredients page
       let quantity = ingredientList.querySelectorAll('input[name="quantity"]');
       let unit = ingredientList.querySelectorAll('input[name="unit"]');
       let ingredient = ingredientList.querySelectorAll(
@@ -449,47 +579,55 @@ class UpdateRecipePage extends HTMLElement {
         60 * parseInt(cookingTimeHour.value) + parseInt(cookingTimeMin.value);
 
       // Send Data
-        let recipe = {
-          image: base64Image,
-          readyInMinutes: readyInMinutes,
-          servings: servings.value,
-          title: title.value,
-          summary: summary.value,
-          extendedIngredients: extendedIngredients,
-          analyzedInstructions: instructions,
-          author: localStorage.getItem('username'), // TODO: Need to update with curr user
-          id: data.recipe['id'],
-        };
-        //console.log(recipe);
-        // in 'submit' event, call page.updateData = <>
-        // Create the POST message to send to the backend
-        let newData = {
-          type: 'updateRecipe',
-          username: localStorage.getItem('username'), // TODO: Need to update with curr user
-          token: localStorage.getItem('token'), // TODO: Need to update with curr password
-          recipe: recipe,
-          title: recipe['title'],
-        };
+      let recipe = {
+        image: base64Image,
+        readyInMinutes: readyInMinutes,
+        servings: servings.value,
+        title: title.value,
+        summary: summary.value,
+        extendedIngredients: extendedIngredients,
+        analyzedInstructions: instructions,
+        author: localStorage.getItem('username'), // TODO: Need to update with curr user
+        id: data.recipe['id'],
+      };
+      if (base64Image == '') {
+        delete recipe.image;
+      }
+      //console.log(recipe);
+      // in 'submit' event, call page.updateData = <>
+      // Create the POST message to send to the backend
+      let newData = {
+        type: 'updateRecipe',
+        username: localStorage.getItem('username'), // TODO: Need to update with curr user
+        token: localStorage.getItem('token'), // TODO: Need to update with curr password
+        recipe: recipe,
+        title: recipe['title'],
+      };
 
-        //Moves back to home page once POST is called
-        function afterFetch() {
-          router.addPage(`recipe_${recipe['id']}`, function () {
-            document
-              .getElementById('#section--update-recipe')
-              .classList.remove('shown');
-            document.getElementById('#section--recipe').classList.add('shown');
-            // Fetch and populate recipe page and add to recipe section
-            const recipePage = document.createElement('recipe-page');
-            recipePage.data = data;
-            recipePage.classList.add('shown');
-            document.getElementById('#section--recipe').innerHTML = '';
-            document.getElementById('#section--recipe').appendChild(recipePage);
-          });
-          router.navigate(`recipe_${recipe['id']}`);
-        }
+      //Moves back to home page once POST is called
+      function afterFetch() {
+        router.addPage(`recipe_${recipe['id']}`, function () {
+          document
+            .getElementById('#section--update-recipe')
+            .classList.remove('shown');
 
-        //Sends data to database
-        POST(newData, afterFetch);
+          // Fetch and populate recipe page and add to recipe section
+          const recipePage = document.createElement('recipe-page');
+          document.getElementById('#section--recipe').innerHTML = '';
+
+          recipePage.data = newData;
+          document.getElementById('#section--recipe').appendChild(recipePage);
+          document.getElementById('#section--recipe').classList.add('shown');
+
+        });
+        router.navigate(`recipe_${recipe['id']}`);
+
+        // Tell the profile page to update with the updated recipe list
+        document.getElementById('#section--profile').firstChild.recipes = '';
+      }
+
+      //Sends data to database
+      POST(newData, afterFetch);
     }
   }
 }

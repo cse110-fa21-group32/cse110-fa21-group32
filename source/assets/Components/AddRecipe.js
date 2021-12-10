@@ -22,152 +22,284 @@ class AddRecipePage extends HTMLElement {
 
     // Fill in styles and root element
     styles.innerHTML = `
-        h2{
-          background-color: #CA676A;
-          background-size: cover;
-          padding: 23.5px;
-          color: white;
-        }
-        div {
-          margin-left: 5%;
-        }
-        .publish-button {
-          background-color: white;
-          border-radius: 9px;
-          border: 1.5px solid #ca676a;
-          text-align: center;
-          min-width: 8%;
-          height: 16pt;
-          margin-left: 5%;
-        }
-        button {
-          background-color: white;
-          border-radius: 9px;
-          border: 1.5px solid #ca676a;
-          text-align: center;
-          min-width: 8%;
-          height: 16pt;
-          margin-left: 5%;
-        }
+    h2{
+      margin-bottom: 0 !important;
+      background-color: #ca676a;
+      background-size: cover;
+      padding: 23.5px;
+      color: white;
+      margin-top: 0;
+      text-align: center;
+      font-weight: lighter !important;
+    }
+    #new-recipe{
+      text-align: center;
+      margin: auto;
+    }
+    .part1 {
+      background-color: #CA676A;
+      width: 100%;
+      color: white;
+      text-align: center;
+    }
+    .part2 { 
+      text-align: center;
+      border-top: 3px solid white;
+      background-color: #324A54;
+      color: white;
+      padding-left: 5%;
+      padding-right: 5%;
+      padding-top: 50px;
+      padding-bottom: 13px;}
+    .part3 { 
+      text-align: center;
+      margin: auto;
+      padding-left: 5%;
+      padding-right: 5%;
+     }
+     .part4 {
+       padding-left: 5%;
+     }
+     .part4:after {
+      content: " ";
+      clear: both;
+      display: table;
+    }
+    .part4-button { 
+      cursor: pointer;
+      background-color: white;
+      border-radius: 16px !important;
+      border: 1.5px solid #ca676a;
+      text-align: center;
+      min-width: 15% !important;
+      height: 2.2em; !important;
+      font-size: 16pt;
+      color:#ca676a;
+      width: auto !important;
+      box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.25);
+      margin: 0.3em;
+      padding: 0.2em !important;
+     }
+    .part4-button:hover {
+      background-color: #ca676a;
+      color: white;
+    }
+     .add-recipe-navbar button {
+      border: transparent;
+      cursor: pointer;
+      float: left;
+      color: white;
+      font-size: large;
+      height: 40pt;
+    }
+    .add-recipe-navbar:after {
+      clear: both;
+      display: table;
+    }
+
+    .add-recipe-navbar button:not(:last-child) {
+      border-right: none; /* Prevent double borders */
+    }
+
+    textarea {
+      width: 80%;
+      height: 42pt;
+      background-color: #EEEEEE;
+      font-size: 16pt;
+    }
+
+    .addIng {
+      width: 90%;
+      padding: 10px 15px;
+      margin: 4px;
+      box-sizing: border-box;
+      font-size: 16pt;
+    }
+    
+    .css-input {
+      width: 20%;
+      padding: 10px 15px;
+      margin: 4px;
+      box-sizing: border-box;
+      font-size: 16pt;
+    }
+    .css-margin {
+      
+      margin: auto;
+    }
+    
+    #recipeImage{
+      width: 100%;
+      max-height: 400px;
+      object-fit: cover;
+    }
+
+    a { text-decoration: none; }
+
+    .add-more-button {
+      cursor: pointer;
+      width: 20%;
+      height: 22pt;
+      background-color: white;
+      border: 1.5px solid black;
+    }
+    .css-x-circle {
+      background-color: white;
+      border: none;
+      cursor: pointer;
+    }
+    .emp {
+      clear: both;
+      height: 50px;
+    }
+    table {
+      margin: auto;
+      padding: 10px;
+      height: 42pt
+    }
+    .part5 {
+      text-align: center;
+    }
+    .part6 {
+      text-align: center;
+    }
+    ol {
+      margin: auto;
+      padding: 10px;
+    }
+    li {
+      display: list-item;
+      list-style-position: inside;
+    }
+    .firstStepTA {
+      position: relative;
+      right: 18px;
+    }
+    
+    
+    }
         `;
     article.innerHTML = `
-        <h2>Add Recipe</h2>
-        <div class="add-recipe-navbar">
-          <!-- li><a onclick="navTo('homeID')" href="javascript:void(0)">home</a></li> -->
-          <a href="#add-recipe-summaryID" id="ToAddSum">Summary</a>
-          <a href="#add-recipe-ingredientsID" id="ToAddIng">Ingredients</a>
-          <a href="#add-recipe-directionID" id="ToAddDir">Directions</a>
+       
+      <div class="part1"> 
+        <h2>Add Your Recipe</h2>
+        <div class="add-recipe-navbar" style="width: 100%">
+          <button id="ToAddSum" style="width:33.3%; background-color: #324A54;">Summary
+            <a href="#add-recipe-summaryID"></a>
+          </button>
+          <button id="ToAddIng" style="width:33.4%; background-color: #CA676A;">Ingredients
+            <a href="#add-recipe-ingredientsID"></a>
+          </button>
+          <button id="ToAddDir" style="width:33.3%; background-color: #CA676A;">Directions
+            <a href="#add-recipe-directionID"></a>
+          </button>
+        </div>
+      </div>
+
+
+      <form id="new-recipe">
+      <div id="add-recipe-summary" style="display: show">
+        <div class="part2">
+          <!--Add Image-->
+          <label for="img"><p><strong>Add Image</strong></p></label>
+          <input type="file" id="imgfile" name="img" accept="image/*" required/>
+          <p><img id="recipeImage"/></p>
+          <br>
+          <br>
+
+          <!--Basic Information-->
+          <label class="css-margin">Cooking Time:</label>
+          <input class="css-input" type="text" name="cookingTimeHour" id="#input--cook-time-hour" placeholder="hours.." required>
+          <input class="css-input" type="text" name="cookintTimeMin" id="#input--cook-time-mins" placeholder="mins.." required>
+          <br>
+          <label class="css-margin" id="servings" for="servings"> No. of Servings: </label>
+          <input class="css-input" type="text" name="numServings" id="#input--no-of-serv" required>
+          <br>
+          <br>
         </div>
 
-        <form id="new-recipe">
-        <!--Add Recipe Summary-->
-        <div id="add-recipe-summary" style="display: show">
-        <br>
-
-        <!--Add Image-->
-        <label for="img"><p><strong>Add Image</strong></p></label>
-        <input type="file" id="imgfile" name="img" accept="image/*" required/>
-        <p><img id="recipeImage" width="200"/></p>
-        <br>
-        <br>
-        <!--<button id="addImage">Add Another Image</button>-->
-
-        <!--Basic Information-->
-        <label>Cooking Time:</label>
-        <input type="text" name="cookingTimeHour" id="#input--cook-time-hour" placeholder="hours.." required>
-        <input type="text" name="cookintTimeMin" id="#input--cook-time-mins" placeholder="mins.." required>
-        <br>
-        <br>
-
-        <label id="servings" for="servings"> No. of Servings: </label>
-        <input type="text" name="numServings" id="#input--no-of-serv" required>
-        <br>
-
-      <!--Basic Information (Tags/Summary)-->
-      <label for="sum"><p><strong>Add Tags from the list: </strong></p></label>
-      <ul>
-        <li>
-        <label for="tags">Tag 1 (Country): </label><br>
-        <select id="tag1-list">
-          <option value="Italian">Italian</option>
-          <option value="French">French</option>
-          <option value="Mexican">Mexican</option>
-          <option value="American">American</option>
-          <option value="Chinese">Chinese</option>
-          <option value="Japanese">Japanese</option>
-          <option value="Korean">Korean</option>
-          <option value="Vietnamese">Korean</option>
-          <option value="Others">Others</option>
-        </select>
-        </li>
-        
-        <li>
-        <label for="tags">Tag 2(Type of Food): </label><br>
-        <select id="tag2-list">
-          <option value="Pizza">Pizza</option>
-          <option value="Seafood">Seafood</option>
-          <option value="Burgers">Burgers</option>
-          <option value="Vegetarian">Vegetarian</option>
-          <option value="Sandwiches">Sandwiches</option>
-          <option value="Steakhouses">Steakhouses</option>
-          <option value="Desserts">Desserts</option>
-          <option value="Drinks">Drinks</option>
-          <option value="Breakfast">Breakfast</option>
-          <option value="Lunch">Lunch</option>
-          <option value="Dinner">Dinner</option>
-          <option value="Others">Others</option>
-        </select>
-        </li>
-      </ul>
-
-      <label for="sum"><p><strong>Add Summary: </strong></p></label>
-      <textarea id="addTitle" name="recipeTitle" placeholder="Title:" required></textarea><br>
-      <textarea id="addSummary" name="recipeSummary" placeholder="Summary" required></textarea>
-      <br>
+        <div class="part3">
+          <label for="sum"><p><strong>Add Summary: </strong></p></label>
+          <textarea id="addTitle" name="recipeTitle" placeholder="Title:" required></textarea><br>
+          <textarea id="addSummary" name="recipeSummary" placeholder="Summary" required></textarea>
+          <br>
+        </div>
       </div>
     
       <!--Add Recipe Ingredients-->
-      <div id="add-recipe-ingredients" style="display: none">
-      <label for="ingredients"><p><strong>Add Ingredients</strong></p></label>
-      <table id="ingredient-table">
-        <tr>
-          <th>Qty</th>
-          <th>Unit</th>
-          <th>Ingredient</th>
-        </tr>
-        <tr>
-          <td><input type="text" name="quantity" required/></td>
-          <td><input type="text" name="unit"/></td>
-          <td><input type="text" name="ingredientName" required/></td>
-        </tr>
-      </table>
-      <!--When click add more should create another new 'tr' with three new inputs-->
-      <button id="addIngredientButton"> Add More </button>
-      <br>
+      <div class="part5" id="add-recipe-ingredients" style="display: none">
+        <!-- empty div for spacing -->
+        <div class="emp"></div>
+        <table id="ingredient-table">
+          <tr>
+            <th>Qty</th>
+            <th>Unit</th>
+            <th>Ingredient</th>
+          </tr>
+          <tr>
+            <td><input class="addIng" type="text" name="quantity" required/></td>
+            <td><input class="addIng" type="text" name="unit"/></td>
+            <td><input class="addIng" type="text" name="ingredientName" required/></td>
+          </tr>
+        </table>
+        <!--When click add more should create another new 'tr' with three new inputs-->
+        <button class="add-more-button" id="addIngredientButton"> 
+          <img src="assets/icons/plus-circle.svg"/> 
+        </button>
+        <br>
       </div>
       <!--TO DO delete ingredients button-->
   
       <!--Add Recipe Directions-->
-      <div id="add-recipe-direction" style="display: none">
-        <p>Direction</p>
+      <div class="part6" id="add-recipe-direction" style="display: none">
+        <!-- empty div for spacing -->
+        <div class="emp"></div>
         <ol>
-          <li>Step:</li>
-          <textarea name="directionStep" id="#input--direction-step" required></textarea>
+          <li class="firstStepli">Step:</li>
+          <textarea class="firstStepTA" name="directionStep" id="#input--direction-step" required></textarea>
         </ol>
         <br>
         <!--When click add more should create another new textarea for direction-->
-        <button id="addDirectionButton"> Add More </button>
+        <button class="add-more-button" id="addDirectionButton"> 
+        <img src="assets/icons/plus-circle.svg"/>
+         </button>
       </div>
       <br>
-      <input class="publish-button" type="submit" value="Publish">
+      
+      <input class="part4-button" id="submitBtn" type="submit" value="Publish"/>
+      <button class="part4-button" id="leaveButton">
+      <a href="home.html"  style="color:#CA676A"> Leave </a>
+      </button>
+      <br>
+
+      <br>
       </form>
       <!--TO DO delete Directions button-->
 
-      <button><a href="home.html"> LEAVE </a></button>
       `;
 
     // Append elements to the shadow root
     this.shadowRoot.append(styles, article);
+
+    // Functions for the layout of recipe detailed page
+    var goToSummaryButton = this.shadowRoot.getElementById('ToAddSum');
+    var goToIngredientsButton = this.shadowRoot.getElementById('ToAddIng');
+    var goToDirectionsButton = this.shadowRoot.getElementById('ToAddDir');
+    goToSummaryButton.addEventListener('click', () => {
+      goToSummaryButton.style.backgroundColor = '#324A54';
+      goToIngredientsButton.style.backgroundColor = '#CA676A';
+      goToDirectionsButton.style.backgroundColor = '#CA676A';
+    });
+    goToIngredientsButton.addEventListener('click', () => {
+      goToSummaryButton.style.backgroundColor = '#CA676A';
+      goToIngredientsButton.style.backgroundColor = '#324A54';
+      goToDirectionsButton.style.backgroundColor = '#CA676A';
+    });
+    goToDirectionsButton.addEventListener('click', () => {
+      goToSummaryButton.style.backgroundColor = '#CA676A';
+      goToIngredientsButton.style.backgroundColor = '#CA676A';
+      goToDirectionsButton.style.backgroundColor = '#324A54';
+    });
 
     // Add Summary
     this.shadowRoot
@@ -227,14 +359,16 @@ class AddRecipePage extends HTMLElement {
           .querySelector('table');
         let row = ingredientsList.insertRow(-1);
         let quantity = row.insertCell(0);
-        quantity.innerHTML = '<input type="text" name="quantity"/>';
+        quantity.innerHTML =
+          '<input class="addIng" type="text" name="quantity"/>';
         let unit = row.insertCell(1);
-        unit.innerHTML = '<input type="text" name="unit"/>';
+        unit.innerHTML = '<input class="addIng" type="text" name="unit"/>';
         let ingredient = row.insertCell(2);
-        ingredient.innerHTML = '<input type="text" name="ingredientName"/>';
+        ingredient.innerHTML =
+          '<input class="addIng" type="text" name="ingredientName"/>';
         let deleteButton = row.insertCell(3);
         deleteButton.innerHTML =
-          '<button onclick="event.preventDefault();this.parentNode.parentNode.parentNode.deleteRow(this.parentNode.parentNode.rowIndex)">Delete Row</button>';
+          '<button class="css-x-circle" onclick="event.preventDefault();this.parentNode.parentNode.parentNode.deleteRow(this.parentNode.parentNode.rowIndex)"><img src="assets/icons/x-circle.svg"/></button>';
       });
 
     // When click "Add More" there should be a new input text area for user to input directions
@@ -249,7 +383,8 @@ class AddRecipePage extends HTMLElement {
         let li = document.createElement('li');
         li.innerHTML = 'Step:';
         let button = document.createElement('button');
-        button.innerHTML = 'Delete';
+        button.setAttribute('class', 'css-x-circle');
+        button.innerHTML = '<img src="assets/icons/x-circle.svg"/>';
         let input = document.createElement('textarea');
         input.setAttribute('name', 'directionStep');
 
@@ -268,7 +403,7 @@ class AddRecipePage extends HTMLElement {
     var img = this.shadowRoot.getElementById('recipeImage');
     var imgFile = this.shadowRoot.querySelector('input[type="file"]');
     var base64Image = '';
-    
+
     imgFile.addEventListener('change', function () {
       imageDisplay(this);
       //console.log(imgFile.files[0]);
@@ -302,8 +437,8 @@ class AddRecipePage extends HTMLElement {
     // newRecipe.addEventListener("submit", handleFormSubmit)
 
     // Event handler for a form submit event
-    const newRecipe = this.shadowRoot.getElementById('new-recipe');
-    newRecipe.addEventListener('submit', (e) => {
+    this.shadowRoot
+      .getElementById('new-recipe').addEventListener('submit', (e) => {
       e.preventDefault();
       postCreateRecipeData();
     });
@@ -402,7 +537,24 @@ class AddRecipePage extends HTMLElement {
       //POST request to send recipe data
 
       function afterAdd() {
-        router.navigate('profile');
+        router.addPage(`recipe_${recipe['id']}`, function () {
+          document
+            .getElementById('#section--add-recipe')
+            .classList.remove('shown');
+
+          // Fetch and populate recipe page and add to recipe section
+          const recipePage = document.createElement('recipe-page');
+          document.getElementById('#section--recipe').innerHTML = '';
+
+          recipePage.data = data;
+          document.getElementById('#section--recipe').appendChild(recipePage);
+          document.getElementById('#section--recipe').classList.add('shown');
+        });
+        router.navigate(`recipe_${recipe['id']}`);
+
+        // Tell the profile page to update with the updated recipe list
+        setTimeout(()=> document.getElementById('#section--profile').firstChild.recipes = '', 100);
+        
       }
       POST(data, afterAdd);
     }
