@@ -1,13 +1,3 @@
-<<<<<<< HEAD
-// router.js
-
- export class Router {
-    static routes = {};
-
-
-  
-  }
-=======
 /**
  * Router.js
  *
@@ -52,4 +42,3 @@ export class Router {
     this[page].call();
   }
 }
->>>>>>> b57536f911388a6db52fb20cc060d47bdb218f70
