@@ -169,11 +169,6 @@ def home_page():
     return render_template('home.html')
 
 if __name__ == '__main__':
-<<<<<<< HEAD:app.py
-    context = ('server.crt', 'server.key')
-    app.run(debug=True, host='0.0.0.0', ssl_context=context)
-=======
     context = ('fullchain.pem', 'privkey.pem')
     app.run(debug=True, host='0.0.0.0', port=443, ssl_context=context)
     # app.run(debug=True) # local server
->>>>>>> 9bd615ef5a1bd551ca791a60c5bc5df95221d073:source/backend/app.py
