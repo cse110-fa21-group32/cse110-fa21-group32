@@ -10,8 +10,8 @@ We were discussing whether to use NodeJS or Python for the backend.
 
 ## Decision Drivers <!-- optional -->
 
-* 
-* Easy to implement, that people can quickly set up
+* Easy to implement so that people can quickly set up
+* Easy to debug
 
 ## Considered Options
 
