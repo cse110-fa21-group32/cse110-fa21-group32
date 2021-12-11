@@ -6,11 +6,12 @@
 
 ## Context and Problem Statement
 
-We were discussing ways to get recipes between, JSON-LD and spoonacular API
+We were discussing what information to show on the home page
 
 ## Decision Drivers <!-- optional -->
 
-* Easy to implement if uploading 100s of recipes
+* User-friendly
+* Easy to implement
 
 ## Considered Options
 
@@ -20,7 +21,7 @@ We were discussing ways to get recipes between, JSON-LD and spoonacular API
 
 ## Decision Outcome
 
-Chosen option: random recipes for exploratory purposes
+Chosen option: {random recipes} because it adds the most to balance out the features of our app, lots of personalized items for own recipes and grocery list so random recipes helps the user discover more recipes in addition to the search bar. Also more stable because the number of recipes shown on the home page can be fixed.
 
 ### Negative Consequences <!-- optional -->
 
@@ -32,7 +33,7 @@ Chosen option: random recipes for exploratory purposes
 * easier to use the functionality
 * make backend set up easier
 
-### {random recipes for exploratory purposes}
+### {random recipes}
 
 * Good, adds an exploratory element so that the user can interact with our recipe pool more and is always populated even if they're a new user
 * Bad, more API intensive and might be less useful to a longer-term user that already knows what they want from the recipes
