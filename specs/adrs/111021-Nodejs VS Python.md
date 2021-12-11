@@ -1,4 +1,4 @@
-# {Decision on whether to include nutrition facts in recipe}
+# {Decision on which programming language to use for the backend}
 
 * Status: {accept}
 * Deciders: {all team members} <!-- optional -->

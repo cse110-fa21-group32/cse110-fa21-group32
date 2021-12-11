@@ -1,4 +1,4 @@
-# {Decision on whether to include nutrition facts in recipe}
+# {Decision on which cloud service to use for our server}
 
 * Status: {accepted}
 * Deciders: {all team members} <!-- optional -->
