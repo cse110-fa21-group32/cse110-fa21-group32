@@ -42,6 +42,7 @@ class GroceryPage extends HTMLElement {
           font-family: "IBM Plex Sans", sans-serif;
         }
         button {
+          cursor: pointer;
           background-color: white;
           border-radius: 16px !important;
           border: 1.5px solid #ca676a;
@@ -54,6 +55,10 @@ class GroceryPage extends HTMLElement {
           box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.25);
           margin: 0.3em;
           padding: 0.2em !important;
+        }
+        button:hover {
+          background-color: #ca676a;
+          color: white;
         }
         .css-wrap {
           margin-left: 35%;
@@ -85,6 +90,16 @@ class GroceryPage extends HTMLElement {
           width: 60%;
           padding: 5% 5% 3% 5%;
         }
+
+        .recipe-link {
+          cursor: pointer;
+        }
+        .recipe-link:hover {
+          color: gray;
+        }
+
+
+
         `;
     article.innerHTML = ` 
         <h2>Grocery List</h2>
@@ -180,6 +195,7 @@ class GroceryPage extends HTMLElement {
 
       // Populates recipe name as title of section
       let p = document.createElement('h3');
+      p.setAttribute('class', 'recipe-link');
       p.innerHTML = currList[i]['name'];
       p.addEventListener('click', () => {
         // Add the recipe page if it doesn't exist
